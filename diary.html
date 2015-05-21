@@ -6,8 +6,10 @@
 <p>
   <ul>
     <li>使用docker run -v将主机上的目录挂载到容器上要在容器运行前，<a href="http://jpetazzo.github.io/2015/01/13/docker-mount-dynamic-volumes/" target="_blank">否则很麻烦。</a></li>
+    <li>docker run -v 在windows boot2docker 下绝对路径要已双斜线开头"//c/Users/DATA/volumn:/src/webapp"<a href="https://github.com/boot2docker/boot2docker/issues/846" target="_blank">否则会出现绝对路径错误</a></li>
     <li>使用link参数连接数据库也要在容器运行前执行</li>
-    <li>容器已经运行后，想要在内部执行命令使用 docker exec -it CONTAINER_NAME bash
+    <li>容器已经运行后，想要在内部执行命令使用 docker exec -it CONTAINER_NAME bash</li>
+    <li></li>
   </ul>
 </p>
 </body>
