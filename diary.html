@@ -4,17 +4,25 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<div style=align:center><h2>diary</h2></div>
 <h3 style=align:center>2015.5.21</h3>
 <p style=align:center><b>Docker</b>学习</p>
 <p>
   <ul>
-    <li>使用docker run -v将主机上的目录挂载到容器上要在容器运行前，<a href="http://jpetazzo.github.io/2015/01/13/docker-mount-dynamic-volumes/" target="_blank">否则很麻烦。</a></li>
-    <li>docker run -v 在windows boot2docker 下绝对路径要已双斜线开头"//c/Users/DATA/volumn:/src/webapp"<a href="https://github.com/boot2docker/boot2docker/issues/846" target="_blank">否则会出现绝对路径错误</a></li>
+    <li>使用docker run -v将主机上的目录挂载到容器上要在容器运行前，<a href="http://jpetazzo.github.io/2015/01/13/docker-mount-dynamic-volumes/" target="_blank"><span style=font-size:15px>否则很麻烦。</span></a></li>
+    <li>docker run -v 在windows boot2docker 下绝对路径要已双斜线开头"//c/Users/DATA/volumn:/src/webapp"<a href="https://github.com/boot2docker/boot2docker/issues/846" target="_blank"><span style=font-size:15px>否则会出现绝对路径错误</span></a></li>
     <li>使用link参数连接数据库也要在容器运行前执行</li>
     <li>容器已经运行后，想要在内部执行命令使用 docker exec -it CONTAINER_NAME bash</li>
     <li></li>
   </ul>
+</p>
+<h3 style=align:center>2015.6.1</h3>
+<p>
+<ul>
+  <li><b>网页中文乱码设置</b>&nbsp;<a href="http://www.zhihu.com/question/20882513" target="_blank"><span style=font-size:15px>如何在页面中显示代码</span></a><span>，</span><a href="http://www.freeformatter.com/html-escape.html#ad-output" target="_blank"><span style=font-size:15px>在线转换</span></a> <br>
+   &lt;head&gt;<br>
+   &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=utf-8&quot;&gt;<br>
+   &lt;/head&gt;<br></li>
+   </ul>
 </p>
 </body>
 </html>
