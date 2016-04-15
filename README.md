@@ -1,4 +1,4 @@
 # yaowang908.github.io
 
-Personal websites collection.
+Websites collection.
 Try some HTML CSS skills, learn from practice.
