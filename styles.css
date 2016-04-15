@@ -70,6 +70,7 @@ nav ul li{
     transition-property: margin;
     transition-duration: 1.5s;
 	text-align:center;
+	font-family:Oxygen;
 	}
 
 .outstripe{
@@ -84,6 +85,7 @@ nav ul li{
     -webkit-transition-duration: 1.5s; /* Safari */
     transition-property: margin;
     transition-duration: 1.5s;
+    font-family:Oxygen;
 	}
 .ghostbutton{
 	color: #b9b9b9;
