@@ -1,7 +1,10 @@
 body{
-	background-image:url(http://freenaturestock.s3.amazonaws.com/453.jpg);
+	background-image:url(http://res.cloudinary.com/daj3wllne/image/upload/c_scale,w_1920/v1460741476/453_pjbtwa.jpg);
 	background-repeat:no-repeat;
-	background-size:1920px 1080px;
+	-webkit-background-size: cover;
+	 -moz-background-size: cover;
+  	-o-background-size: cover;
+	 background-size: cover;
 	margin:0;
 	padding:0;
 	}
