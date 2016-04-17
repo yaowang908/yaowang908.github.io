@@ -11,27 +11,37 @@ body{
 	}
 #navcontainer{
 	width:200%;
-	height:20px;
+	height:40px;
 	}
 #hiddennav{
 	width:50%;
 	float:left;
-	height:20px;
+	height:100%;
 	}
 nav{
-	background-color:#484848;
+	background-color:#333333;
 	width:50%;
 	float:left;
-	height:20px;
+	height:100%;
 	}
 nav ul{
 	margin:0;
 	padding:0;
 	text-decoration:none;
 	list-style-type:none;
+	line-height:40px;
 	font-size:18px;
 	color:#989898;
 	}
+#logo{
+	height:40px;
+	width:100px;
+	float:left;
+	margin:0;
+	padding:0;
+	z-index:2;
+	margin-left:20px;
+	}	
 a:link{ color:#fff;	text-decoration:none;}
 a:visited{ color:#fff;text-decoration:none;	}
 a:hover{ color:#484848;text-decoration:none;	}
