@@ -327,3 +327,31 @@ nav ul li{
     transform: skewX(-30deg) rotate(120deg);
 	font-size:30px;
 	}
+
+@media (max-width: 1300px){
+	.stripe{
+		height:200px;
+	}
+	.outstripe{
+		height:200px;
+	}
+	.ghostbutton{
+		margin-top:70px;
+	}
+	.ghostbutton_back{
+		margin-top:70px;
+	}
+}
+
+@media (max-width: 680px){
+	.ghostbutton{
+		margin-left:32%;
+		margin-top:70px;
+	}
+	.ghostbutton_back{
+		margin-top:70px;
+	}
+	
+ 
+
+}
