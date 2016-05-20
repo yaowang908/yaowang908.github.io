@@ -17,14 +17,14 @@ window.onload = function(){
 		});
 	}
 	
-	for(var n=0;n<container.length;n++){
-	container[n].addEventListener('mouseleave',function(){
-		this.children[0].style.marginLeft= "0";
-		this.children[1].style.marginLeft= "100%";
-		this.children[0].children[0].style.display = "block";
-		this.children[0].children[1].style.display = "none";
-		});
-	}
+//	for(var n=0;n<container.length;n++){
+//	container[n].addEventListener('mouseleave',function(){
+//		this.children[0].style.marginLeft= "0";
+//		this.children[1].style.marginLeft= "100%";
+//		this.children[0].children[0].style.display = "block";
+//		this.children[0].children[1].style.display = "none";
+//		});
+//	}
 	
 	for(var m=0;m<container.length;m++){
 	ghostbutton_back[m].addEventListener('click',function(){
