@@ -1,0 +1,104 @@
+body,div{padding: 0;margin: 0;position: relative;font-family: Oxygen,sans-serif}
+.clear{clear:both;}
+.hide{display: none;}
+.show{display: block;}
+.left{float:left;}
+.right{float:right;}
+a:link{
+	color:#0f6ea0;
+	text-decoration: :underline;
+}
+a:visited{color:#0f6ea0;}
+a:hover{color:#0b5c86;}
+a:active{color:#0f6ea0;}
+.left-nav{
+	width:30vw;
+	min-width: 250px;
+	height: 100vh;
+	position: fixed;
+	border-right: 1px solid #d4d4d4;
+}
+.main-body{
+	margin-left: 30vw;
+}
+.author{
+	margin-left: 5vw;
+	margin-top: 30vh;
+}
+#name{
+	display: block;
+	font-size: 30px;
+	font-weight: bold;
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+}
+#love{
+	display: block;
+	font-size: 16px;
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
+}
+.menu{
+	width:100px;
+	margin-top:30px;
+	margin-left:5vw;
+}
+.menu ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.menu ul a{
+	text-decoration: none;
+	color:#ce661c;
+	display: block;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 18px;
+}
+.menu ul li{
+	display: block;
+	width:100px;
+	height: 30px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #d6d6d6;
+}
+
+.sitescontainer {
+	width: 100%;
+}
+
+.sites {
+	display: inline;
+	font-size: 18px;
+	margin-right:10px;
+	margin-top:10px;
+	height: 30px;
+	width: 200px;
+}
+.sites a{
+	text-decoration: none;
+	color:#ce661c;
+	display: block;
+	height: 30px;
+	width: 200px;
+}
+
+.title {
+	width:100%;
+	text-align: center;
+	height:80px;
+	line-height: 80px;
+	font-size: 25px;
+	font-weight: bold;
+}
+#resources{
+	padding-top:30px;
+	padding-left:60px;
+/*	text-align: center;*/
+}
