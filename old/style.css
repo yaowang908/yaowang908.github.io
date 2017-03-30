@@ -1,0 +1,25 @@
+body,div{padding:0;margin:0;}
+body{position:relative;font-family: Oxygen,sans-serif}
+.show{display: block;}
+.hide{display: none;}
+.clear{clear:both;}
+.left{float:left;}.right{float:right;}
+
+.left-nav {
+	width:20vw;
+	height: 100vh;
+	min-width: 222px;
+	border-right:1px solid #e2e2e2;
+	position: fixed;
+	top:0;
+	left:0;
+}
+.author{
+	display: block;
+	margin-top:100%;
+	margin-left:20%;
+}
+.main-body{
+	width:80vw;
+	height:200vh;
+}
