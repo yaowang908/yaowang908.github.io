@@ -5,6 +5,7 @@ layout: default
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 [Link to another page](another-page).
+[Link to hello world](_posts/hello-world)
 
 There should be whitespace between paragraphs.
 
