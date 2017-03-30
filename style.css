@@ -11,15 +11,29 @@ a:link{
 a:visited{color:#0f6ea0;}
 a:hover{color:#0b5c86;}
 a:active{color:#0f6ea0;}
+body{min-width: 751px;overflow-x: hidden;}
 .left-nav{
 	width:30vw;
 	min-width: 250px;
+	max-width: 430px;
 	height: 100vh;
 	position: fixed;
 	border-right: 1px solid #d4d4d4;
 }
+/*
+.left-nav-placeholder{
+	width:30vw;
+	height: 100vh;
+	min-width: 250px;
+	max-width: 430px;
+}
+*/
 .main-body{
-	margin-left: 30vw;
+	width:70vw;
+	min-width: 501px;
+	position: absolute;
+	overflow-x: hidden;
+	left:30vw;
 }
 .author{
 	margin-left: 5vw;
@@ -84,7 +98,7 @@ a:active{color:#0f6ea0;}
 .sites a{
 	text-decoration: none;
 	color:#ce661c;
-	display: block;
+	display: inline-block;
 	height: 30px;
 	width: 200px;
 }
