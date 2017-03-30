@@ -18,15 +18,11 @@ JB :
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-url: http://git.chenjun.com
-title: ChenJun(Zhu8)-浮生志
-tagline: On The Way to Philistinism...
-about: <a href="http://chenjun.com/"><strong>陈俊</strong></a>ChenJun(Zhu8)的个人网站，江苏人士，83年生人，电子产品自虐狂，<a href="http://chenjun.com/wang2/"><strong>王小波</strong></a>门下走狗，欢迎<strong>Fork</strong>本站@<a href="https://github.com/Zhu8/zhu8.github.io/fork">Github</a>。
+url: http://yaowang908.github.io
+title: YaoWang
+tagline: 
+about: <a href="https://www.behance.net/yaowang9"><strong>Yao Wang</strong></a> love coding and design.
 author:
-  name: Chen Jun(Zhu8)
-  email: zhu8.net@gmail.com
-  github: Zhu8
-  twitter: 5CJ
-  facebook: ichenjun
-  googleplus: +ChenJun
-  feedburner : Zhu8/github
+  name: Yao Wang
+  email: yaowang908@yahoo.com
+  github: yaowang908
