@@ -1,3 +1,4 @@
-# Yao Wang's Blog
+# yaowang908.github.io
 
-Love coding and [`design`](https://www.behance.net/yaowang9)!
+Websites collection.
+Try some HTML CSS skills, learn from practice.
