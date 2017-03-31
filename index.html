@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 	</head>
-	<body>
+	<body ng-app="free">
 		<div class="left-nav">
 			<div class="menuburger">
 				<div class="menuburger-layer"></div>
@@ -22,16 +22,15 @@
 				<p id="name">Yao Wang</p>
 				<p id="love">Love coding and <a href="https://www.behance.net/yaowang9">design</a>!</p>
 			</div>
-			<div class="menu">
+			<div class="menu" ng-controller="menu">
 				<ul>
-					<li><a href="#resources">Resources</a></li>
-					<li><a href="#others">Others</a></li>
+					<li ng-repeat="x in menu"><a href="{{x.url}}">{{x.name}}</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="left-nav-placeholder left"></div>
 		<div class="main-body left"> 
-			<div id="resources" ng-app="free">
+			<div id="resources" >
 				<div class="title"><span>Free Image</span></div>
 				<div class="sitescontainer"  ng-controller="freeImageCtrl">
 					<ul>

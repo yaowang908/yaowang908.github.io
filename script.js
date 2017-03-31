@@ -1,4 +1,11 @@
 var appFree = angular.module('free',[]);
+appFree.controller('menu',function($scope){
+    $scope.menu=[
+        {url :"#resources",name:"Resources"},
+        {url :"http://learner908.blogspot.com/",name:"Blog"},
+        {url :"http://wp-422321065.rhcloud.com/",name:"Others"},
+    ];
+});
 appFree.controller('freeImageCtrl',function($scope){
     $scope.freeImageSites=[
         {url :"http://pixabay.com",name:"Pixabay"},
