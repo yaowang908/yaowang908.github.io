@@ -4,7 +4,6 @@
 		<meta charset="utf-8">
 		<title>Yao Wang</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<script src="script.js"></script>
 		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
@@ -20,41 +19,31 @@
 				</ul>
 			</div>
 		</div>
-<!--		<div class="left-nav-placeholder left"></div>-->
-		<div class="main-body"> 
-			<div id="resources">
+		<div class="left-nav-placeholder left"></div>
+		<div class="main-body left"> 
+			<div id="resources" ng-app="free">
 				<div class="title"><span>Free Image</span></div>
-				<div class="sitescontainer">
+				<div class="sitescontainer"  ng-controller="freeImageCtrl">
 					<ul>
-						<li class="sites"><a href="http://pixabay.com">Pixabay</a></li>
-						<li class="sites"><a href="http://www.sitebuilderreport.com/stock-up">Stock up</a></li>
-						<li class="sites"><a href="https://www.pixelsquid.com/">Pixel Squid</a></li>
-						<li class="sites"><a href="http://www.iconfont.cn/">Icon Font by Alibaba</a></li>
-						<li class="sites"><a href="https://unsplash.com/">unsplash</a></li>
-						<li class="sites"><a href="http://www.gratisography.com/">Gratisography</a></li>
-						<li class="sites"><a href="http://www.lifeofpix.com/">life of pix</a></li>
-						<li class="sites"><a href="http://publicdomainarchive.com/">public domain archive</a></li>
-						<li class="sites"><a href="http://jaymantri.com/">jaymantri</a></li>
-						<li class="sites"><a href="http://littlevisuals.co/">little visuals</a></li>
-						<li class="sites"><a href="http://nos.twnsnd.co/">new old stock</a></li>
-						<li class="sites"><a href="https://foodiesfeed.com//">foodies feed</a></li>
-						<li class="sites"><a href="http://raumrot.com/photo-set-landing/">raumrot</a></li>
-						<li class="sites"><a href="http://kaboompics.com/#">kaboompics</a></li>
-						<li class="sites"><a href="http://www.splitshire.com/">split shire</a></li>
-						<li class="sites"><a href="http://magdeleine.co/browse/">magdeleine</a></li>
-						<li class="sites"><a href="http://picography.co/">picography</a></li>
+						<li class="sites" ng-repeat="x in freeImageSites">
+							<a href="{{x.url}}" target="_blank">{{x.name}}</a>
+						</li>
 					</ul>
 				</div>
 				<div class="title"><span>Free font</span></div>
-				<div class="sitescontainer">
+				<div class="sitescontainer" ng-controller="freeFontCtrl">
 					<ul>
-						<li class="sites"><a href="https://www.fontsquirrel.com/">Free font</a></li>
+						<li class="sites" ng-repeat="x in freeFontSites">
+							<a href="{{x.url}}" target="_blank">{{x.name}}</a>
+						</li>
 					</ul>
 				</div>
 				<div class="title"><span>Free stuff search engine</span></div>
-				<div class="sitescontainer">
+				<div class="sitescontainer" ng-controller="freeSearchCtrl">
 					<ul>
-						<li class="sites"><a href="https://search.creativecommons.org/">CC Search</a></li>
+						<li class="sites" ng-repeat="x in freeSearchSites">
+							<a href="{{x.url}}" target="_blank">{{x.name}}</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -62,6 +51,11 @@
 			
 			</div>
 		</div>
-<!--		<div class="clear"></div>-->
+		<div class="clear"></div>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+				integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+				crossorigin="anonymous"></script>
+		<script src="script.js"></script>
 	</body>
 </html>

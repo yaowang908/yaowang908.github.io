@@ -6,7 +6,7 @@ body,div{padding: 0;margin: 0;position: relative;font-family: Oxygen,sans-serif}
 .right{float:right;}
 a:link{
 	color:#0f6ea0;
-	text-decoration: :underline;
+	text-decoration: underline;
 }
 a:visited{color:#0f6ea0;}
 a:hover{color:#0b5c86;}
@@ -19,21 +19,21 @@ body{min-width: 751px;overflow-x: hidden;}
 	height: 100vh;
 	position: fixed;
 	border-right: 1px solid #d4d4d4;
+	z-index: 999;
 }
-/*
+
 .left-nav-placeholder{
 	width:30vw;
 	height: 100vh;
 	min-width: 250px;
 	max-width: 430px;
 }
-*/
+
 .main-body{
-	width:70vw;
+	width:68vw;
 	min-width: 501px;
-	position: absolute;
+	position: relative;
 	overflow-x: hidden;
-	left:30vw;
 }
 .author{
 	margin-left: 5vw;
