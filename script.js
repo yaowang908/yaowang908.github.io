@@ -37,4 +37,10 @@ appFree.controller('freeSearchCtrl',function($scope){
         {url:"https://search.creativecommons.org/",name:"CC Search"},
     ];
 });
+appFree.controller('sitesILove',function($scope){
+    $scope.sitesILove=[
+        {url:"http://placehold.it",name:"Create Imageholder"},
+        {url:"http://codepen.io",name:"Front-end Playground"}
+    ];
+});
 
