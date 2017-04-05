@@ -40,7 +40,8 @@ appFree.controller('freeSearchCtrl',function($scope){
 appFree.controller('sitesILove',function($scope){
     $scope.sitesILove=[
         {url:"http://placehold.it",name:"Create Imageholder"},
-        {url:"http://codepen.io",name:"Front-end Playground"}
+        {url:"http://codepen.io",name:"Front-end Playground"},
+        {url:"http://caniuse.com/#home",name:"Check Cross Browser Capability"}
     ];
 });
 
