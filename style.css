@@ -18,6 +18,7 @@ body{min-width: 751px;overflow-x: hidden;}
 	display: none;
 	opacity:0.3;
 	position: absolute;
+	z-index: 999;
 }
 .menuburger:hover{
 	opacity:1;
@@ -35,6 +36,7 @@ body{min-width: 751px;overflow-x: hidden;}
 	height: 32px;
 	opacity: 0.3;
 	display: none;
+	z-index: 999;
 }
 .menucross:before, .menucross:after {
   position: absolute;
@@ -180,6 +182,21 @@ body{min-width: 751px;overflow-x: hidden;}
 	}
 	.menu{
 		display: none;
+		margin:0;padding:0;
+		width:100%;
+		z-index: -100;
+		margin-top:-100px;
+	}
+	.menu ul{
+		width:100%;
+		background-color:#333;
+	}
+	.menu ul li{
+		margin:0;padding:0;
+		padding-left:10vw;
+		width:100%;
+		background-color:#333;
+		border-bottom:1px #d4d4d4 solid;
 	}
 	.author{
 		margin:0;

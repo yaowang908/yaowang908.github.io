@@ -66,9 +66,9 @@ appFree.directive('menuburger',menuburgerclick);
 function menuburgerclick(){
     return{
         restrict:'AE',
-        link:function(scope,element,attrs){
-            scope.click = function(){
-                alert('its firing');
+        link:function($scope,element,attrs){
+            $scope.menubClick = function(){
+                
             }
         }
     }
