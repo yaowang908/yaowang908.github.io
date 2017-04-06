@@ -46,19 +46,30 @@ appFree.controller('sitesILove',function($scope){
         {url:"https://mubu.com/",name:"Online White Board"}
     ];
 });
-appFree.controller('menuburger',function($scope){
-    $scope.menubState="show";
-    $scope.menucState="hide";
-    $scope.menubClick = function($scope){
-        if($scope.menubState === 'show'){
-            $scope.menubState = 'hide';
-            $scope.menucState = 'show';
+// appFree.controller('menuburger',function($scope){
+//     $scope.menubClick = function($scope){
+//             console.log('menu b clicked !');
+//             $scope.menubState = 'hide';
+//             $scope.menucState = 'show';
+//     };
+//     $scope.menucClick = function($scope){
+//         if($scope.menucState === 'show'){
+//             $scope.menucState = 'hide';
+//             $scope.menubState = 'show';
+//         }
+//     };
+//     $scope.alert = function(string){
+//         alert(string);
+//     }
+// });
+appFree.directive('menuburger',menuburgerclick);
+function menuburgerclick(){
+    return{
+        restrict:'AE',
+        link:function(scope,element,attrs){
+            scope.click = function(){
+                alert('its firing');
+            }
         }
-    };
-    $scope.menucClick = function($scope){
-        if($scope.menucState === 'show'){
-            $scope.menucState = 'hide';
-            $scope.menubState = 'show';
-        }
-    };
-});
+    }
+}

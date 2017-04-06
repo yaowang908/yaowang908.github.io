@@ -9,15 +9,18 @@
 	</head>
 	<body ng-app="free">
 		<div class="left-nav">
-			<div class="menuburger" ng-controller="menuburger" ng-class="menubState" ng-click="menubClick">
+			
+			<div class="menuburger" ng-class="menubState" menuburger ng-click="menubClick" >
 				<div class="menuburger-layer"></div>
 				<div class="menuburger-layer"></div>
 				<div class="menuburger-layer"></div>
 			</div>
-			<div class="menucross" ng-class="menucState" ng-click="menucClick">
+			<div class="menucross" ng-class="menucState" menucross ng-click="menucClick">
 				<div class="upper-tri"></div>
 				<div class="lower-tri"></div>
 			</div>
+			
+			
 			<div class="author">
 				<p id="name">Yao Wang</p>
 				<p id="love">Love coding and <a href="https://www.behance.net/yaowang9">design</a>!</p>
