@@ -9,12 +9,12 @@
 	</head>
 	<body ng-app="free">
 		<div class="left-nav">
-			<div class="menuburger">
+			<div class="menuburger" ng-controller="menuburger" ng-class="menubState" ng-click="menubClick">
 				<div class="menuburger-layer"></div>
 				<div class="menuburger-layer"></div>
 				<div class="menuburger-layer"></div>
 			</div>
-			<div class="menucross">
+			<div class="menucross" ng-class="menucState" ng-click="menucClick">
 				<div class="upper-tri"></div>
 				<div class="lower-tri"></div>
 			</div>

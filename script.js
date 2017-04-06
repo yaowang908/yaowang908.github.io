@@ -46,4 +46,19 @@ appFree.controller('sitesILove',function($scope){
         {url:"https://mubu.com/",name:"Online White Board"}
     ];
 });
-
+appFree.controller('menuburger',function($scope){
+    $scope.menubState="show";
+    $scope.menucState="hide";
+    $scope.menubClick = function($scope){
+        if($scope.menubState === 'show'){
+            $scope.menubState = 'hide';
+            $scope.menucState = 'show';
+        }
+    };
+    $scope.menucClick = function($scope){
+        if($scope.menucState === 'show'){
+            $scope.menucState = 'hide';
+            $scope.menubState = 'show';
+        }
+    };
+});
