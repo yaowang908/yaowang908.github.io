@@ -44,7 +44,8 @@ appFree.controller('sitesILove',function($scope){
         {url:"http://caniuse.com/#home",name:"Check Cross Browser Capability"},
         {url:"http://thenews.im/",name:"The News!"},
         {url:"https://mubu.com/",name:"Online White Board"},
-        {url:"https://www.merriam-webster.com",name:"Online Dictionary"}
+        {url:"https://www.merriam-webster.com",name:"Online Dictionary"},
+        {url:"http://easings.net",name:"Easing cheat sheet"}
     ];
 });
 
