@@ -2,6 +2,7 @@ $linkColor:#ce661c;
 $leftNavColor:#333;
 $leftTitleColor:#d4d4d4;
 $SectionTitleColor:#333;
+$mainBodyTitleBgColor:#FFD16E;
 
 *{padding:0;margin:0;}
 body,div{position: relative;font-family: Oxygen,sans-serif}
@@ -18,7 +19,12 @@ a:visited{color:#0f6ea0;}
 a:hover{color:#0b5c86;}
 a:active{color:#0f6ea0;}
 body{min-width: 751px;overflow-x: hidden;}
-
+.data-show-true{
+	height:auto;opacity:1;
+	-webkit-transition:opacity 200ms ease-out,height 1000ms cubic-bezier(0.86, 0, 0.07, 1);
+	transition:opacity 200ms ease-out,height 1000ms cubic-bezier(0.86, 0, 0.07, 1);
+	}
+.data-show-false{height:0;opacity:0;}
 
 .left-nav{
 	width:25vw;
@@ -190,6 +196,7 @@ body{min-width: 751px;overflow-x: hidden;}
 	margin-right:15vw;
 	position: relative;
 	overflow-x: hidden;
+	min-height:100vh;
 	@media(max-width:1000px){
 		margin-left:280px;
 	}
@@ -206,12 +213,15 @@ body{min-width: 751px;overflow-x: hidden;}
 		.title {
 			// width:100%;
 			color:$SectionTitleColor;
-			padding-right:13vw;
+			padding-right:0;
 			text-align: center;
 			height:80px;
 			line-height: 80px;
 			font-size: 25px;
 			font-weight: bold;
+			cursor:pointer;
+			margin-bottom:10px;
+			background-color:$mainBodyTitleBgColor;
 			@media(max-width:500px){
 				padding-right:0;
 			}
@@ -219,6 +229,7 @@ body{min-width: 751px;overflow-x: hidden;}
 
 		.sitescontainer {
 			width: 100%;
+
 			@media(max-width:768px){
 				padding-left:10vw;
 			}

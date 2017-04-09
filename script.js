@@ -1,12 +1,25 @@
 var appFree = angular.module('free',[]);
-appFree.controller('menu',function($scope){
+appFree.controller('list',function($scope){
     $scope.menu=[
         {url :"#resources",name:"Resources"},
         {url :"http://learner908.blogspot.com/",name:"Blog"},
         {url :"http://wp-422321065.rhcloud.com/",name:"Others"},
     ];
-});
-appFree.controller('freeImageCtrl',function($scope){
+    $scope.sitesILove=[
+        {url:"http://placehold.it",name:"Create Imageholder"},
+        {url:"http://codepen.io",name:"Front-end Playground"},
+        {url:"http://caniuse.com/#home",name:"Check Cross Browser"},
+        {url:"http://thenews.im/",name:"The News!"},
+        {url:"https://mubu.com/",name:"Online White Board"},
+        {url:"https://www.merriam-webster.com",name:"Online Dictionary"},
+        {url:"http://easings.net",name:"Easing cheat sheet"}
+    ];
+    // click function
+    $scope.sitesILoveIsShow = true;
+    $scope.sitesILoveShow = function(){
+        $scope.sitesILoveIsShow=!$scope.sitesILoveIsShow;
+    };
+
     $scope.freeImageSites=[
         {url :"http://pixabay.com",name:"Pixabay"},
         {url :"http://www.sitebuilderreport.com/stock-up",name:"Stock up"},
@@ -26,27 +39,31 @@ appFree.controller('freeImageCtrl',function($scope){
         {url :"http://magdeleine.co/browse/",name:"Magdeleine"},
         {url :"http://picography.co/",name:"Picography"},
     ];
-});
-appFree.controller('freeFontCtrl',function($scope){
+    // click function
+    $scope.freeImageIsShow = true;
+    $scope.freeImageShow = function(){
+        $scope.freeImageIsShow=!$scope.freeImageIsShow;
+    };
+
     $scope.freeFontSites=[
         {url:"https://www.fontsquirrel.com/",name:"Free font"},
     ];
-});
-appFree.controller('freeSearchCtrl',function($scope){
+    // click function
+    $scope.freeFontIsShow = false;
+    $scope.freeFontShow = function(){
+        $scope.freeFontIsShow=!$scope.freeFontIsShow;
+    };
+
     $scope.freeSearchSites=[
         {url:"https://search.creativecommons.org/",name:"CC Search"},
     ];
-});
-appFree.controller('sitesILove',function($scope){
-    $scope.sitesILove=[
-        {url:"http://placehold.it",name:"Create Imageholder"},
-        {url:"http://codepen.io",name:"Front-end Playground"},
-        {url:"http://caniuse.com/#home",name:"Check Cross Browser"},
-        {url:"http://thenews.im/",name:"The News!"},
-        {url:"https://mubu.com/",name:"Online White Board"},
-        {url:"https://www.merriam-webster.com",name:"Online Dictionary"},
-        {url:"http://easings.net",name:"Easing cheat sheet"}
-    ];
+    // click function
+    $scope.freeStuffSearchEngineIsShow = false;
+    $scope.freeStuffSearchEngineShow = function(){
+        $scope.freeStuffSearchEngineIsShow=!$scope.freeStuffSearchEngineIsShow;
+    };
+
+    
 });
 // appFree.controller('menuburger',function($scope){
 //     $scope.menubClick = function($scope){
