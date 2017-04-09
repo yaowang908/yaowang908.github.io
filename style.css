@@ -196,7 +196,7 @@ body {
   margin-left: 30vw;
   margin-right: 15vw;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
   min-height: 100vh; }
   @media (max-width: 1000px) {
     .main-body {
