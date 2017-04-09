@@ -236,8 +236,11 @@ body{min-width: 751px;overflow-x: hidden;}
 			@media(max-width:500px){
 				padding-left:0;
 			}
+			ul{
+				margin:0 auto;
+			}
 			.sites {
-				display: inline;
+				display: inline-block;
 				font-size: 18px;
 				margin-right:10px;
 				margin-top:10px;

@@ -233,8 +233,10 @@ body {
       @media (max-width: 500px) {
         .main-body #resources .sitescontainer {
           padding-left: 0; } }
+      .main-body #resources .sitescontainer ul {
+        margin: 0 auto; }
       .main-body #resources .sitescontainer .sites {
-        display: inline;
+        display: inline-block;
         font-size: 18px;
         margin-right: 10px;
         margin-top: 10px;
