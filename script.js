@@ -41,7 +41,7 @@ appFree.controller('sitesILove',function($scope){
     $scope.sitesILove=[
         {url:"http://placehold.it",name:"Create Imageholder"},
         {url:"http://codepen.io",name:"Front-end Playground"},
-        {url:"http://caniuse.com/#home",name:"Check Cross Browser Capability"},
+        {url:"http://caniuse.com/#home",name:"Check Cross Browser"},
         {url:"http://thenews.im/",name:"The News!"},
         {url:"https://mubu.com/",name:"Online White Board"},
         {url:"https://www.merriam-webster.com",name:"Online Dictionary"},
