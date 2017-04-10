@@ -12,7 +12,8 @@ appFree.controller('list',function($scope){
         {url:"http://thenews.im/",name:"The News!"},
         {url:"https://mubu.com/",name:"Online White Board"},
         {url:"https://www.merriam-webster.com",name:"Online Dictionary"},
-        {url:"http://easings.net",name:"Easing cheat sheet"}
+        {url:"http://easings.net",name:"Easing cheat sheet"},
+        {url:"http://www.etymonline.com",name:"Etymology Online"}
     ];
     // click function
     $scope.sitesILoveIsShow = true;
