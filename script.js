@@ -13,7 +13,8 @@ appFree.controller('list',function($scope){
         {url:"https://mubu.com/",name:"Online White Board"},
         {url:"https://www.merriam-webster.com",name:"Online Dictionary"},
         {url:"http://easings.net",name:"Easing cheat sheet"},
-        {url:"http://www.etymonline.com",name:"Etymology Online"}
+        {url:"http://www.etymonline.com",name:"Etymology Online"},
+        {url:"https://tinyjpg.com/",name:"Compress Image"}
     ];
     // click function
     $scope.sitesILoveIsShow = true;
