@@ -14,7 +14,8 @@ appFree.controller('list',function($scope){
         {url:"https://www.merriam-webster.com",name:"Online Dictionary"},
         {url:"http://easings.net",name:"Easing cheat sheet"},
         {url:"http://www.etymonline.com",name:"Etymology Online"},
-        {url:"https://tinyjpg.com/",name:"Compress Image"}
+        {url:"https://tinyjpg.com/",name:"Compress Image"},
+        {url:"https://www.autodraw.com/",name:"FastDraw w/ AI"}
     ];
     // click function
     $scope.sitesILoveIsShow = true;
