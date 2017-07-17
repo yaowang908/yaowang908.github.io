@@ -16,7 +16,8 @@ appFree.controller('list',function($scope){
         {url:"http://www.etymonline.com",name:"Etymology Online"},
         {url:"https://tinyjpg.com/",name:"Compress Image"},
         {url:"https://www.autodraw.com/",name:"FastDraw w/ AI"},
-        {url:"https://pixlr.com/editor/",name:"Online PS"}
+        {url:"https://pixlr.com/editor/",name:"Online PS"},
+        {url:"http://www.polaxiong.com/editor",name:"OL Photo Filter"}
     ];
     // click function
     $scope.sitesILoveIsShow = true;
