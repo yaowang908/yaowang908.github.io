@@ -43,6 +43,7 @@ appFree.controller('list',function($scope){
         {url :"http://www.splitshire.com/",name:"Split shire"},
         {url :"http://magdeleine.co/browse/",name:"Magdeleine"},
         {url :"http://picography.co/",name:"Picography"},
+        {url :"http://pickupimage.com/",name:"PickUpImage"}
     ];
     // click function
     $scope.freeImageIsShow = true;
