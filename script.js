@@ -27,6 +27,7 @@ appFree.controller('list',function($scope){
 
     $scope.freeImageSites=[
         {url :"http://pixabay.com",name:"Pixabay"},
+        {url :"https://www.pexels.com/",name:"Pexels"},
         {url :"http://www.sitebuilderreport.com/stock-up",name:"Stock up"},
         {url :"https://www.pixelsquid.com/",name:"Pixel Squid"},
         {url :"http://www.iconfont.cn/",name:"Icon Font by Alibaba"},
