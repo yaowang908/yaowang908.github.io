@@ -1,82 +1,12 @@
-<!doctype>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Yao Wang</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-	</head>
-	<body ng-app="free" ng-controller="list">
-		<div class="left-nav">
-			
-			<div class="menuburger" ng-class="menubState" menuburger ng-click="menubClick()" >
-				<div class="menuburger-layer"></div>
-				<div class="menuburger-layer"></div>
-				<div class="menuburger-layer"></div>
-			</div>
-			<div class="menucross" ng-class="menucState" menucross ng-click="menucClick()">
-				<div class="upper-tri"></div>
-				<div class="lower-tri"></div>
-			</div>
-			
-			
-			<div class="author">
-				<p id="name">Yao Wang</p>
-				<p id="love">Love coding and <a href="https://www.behance.net/yaowang9">design</a>!</p>
-			</div>
-			<div class="menu" >
-				<ul>
-					<li ng-repeat="x in menu"><a href="{{x.url}}">{{x.name}}</a></li>
-				</ul>
-			</div>
-		</div>
-		<!--<div class="left-nav-placeholder left"></div>-->
-		<div class="main-body left"> 
-			<div id="resources" >
-				<div class="title" ng-click="sitesILoveShow()"><span>Sites I Love</span></div>
-				<div class="sitescontainer" >	    
-				    <ul class="data-show-{{sitesILoveIsShow}}">
-					    <li class="sites" ng-repeat="x in sitesILove">
-						    <a href="{{x.url}}" target="_blank">{{x.name}}</a>
-					    </li>  
-				    </ul>
-				</div>
-				<div class="title" ng-click="freeImageShow()"><span>Free Image</span></div>
-				<div class="sitescontainer"  >
-					<ul class="data-show-{{freeImageIsShow}}">
-						<li class="sites" ng-repeat="x in freeImageSites">
-							<a href="{{x.url}}" target="_blank">{{x.name}}</a>
-						</li>
-					</ul>
-				</div>
-				<div class="title" ng-click="freeFontShow()"><span>Free font</span></div>
-				<div class="sitescontainer" >
-					<ul class="data-show-{{freeFontIsShow}}">
-						<li class="sites" ng-repeat="x in freeFontSites">
-							<a href="{{x.url}}" target="_blank">{{x.name}}</a>
-						</li>
-					</ul>
-				</div>
-				<div class="title" ng-click="freeStuffSearchEngineShow()"><span>Free stuff search engine</span></div>
-				<div class="sitescontainer" >
-					<ul class="data-show-{{freeStuffSearchEngineIsShow}}">
-						<li class="sites" ng-repeat="x in freeSearchSites">
-							<a href="{{x.url}}" target="_blank">{{x.name}}</a>
-						</li>
-					</ul>
-				</div>
-				
-			</div>
-			<div id="others">
-			
-			</div>
-		</div>
-		<div class="clear"></div>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-				integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-				crossorigin="anonymous"></script>
-		<script src="script.js"></script>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yao Wang</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
 </html>
