@@ -8,8 +8,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         app: "./src/index.jsx",
-        jquery: "jquery",
-        knockout: "knockout"
     },
     devtool: 'source-map',
     output: {

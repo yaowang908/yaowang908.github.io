@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const BackgroundCanvas = styled.canvas`
-    width: 100%;
-    height:100%;
-    margin: 0;
-    padding：0；
-`;
+class Particle {
+    constructor(radius,x,y) {
+        this.radius = radius;
+        this.axisX = x;
+        this.axisY = y;
+    }
+
+    draw(ctx) {
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.radius, 0, 2 * Math.PI);
+        ctx.fill();
+    }
+
+}
+
 
 export default class App extends Component {
     constructor(props) {
@@ -18,15 +27,14 @@ export default class App extends Component {
     }
 
     updateCanvas() {
-        const canvas = this.refs.canvas;
+        const canvas = document.getElementById("canvas");
         if(canvas.getContext) {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgb(200, 0, 0)';
-            for(let i = 20; i>0; i=i-3) {
-                ctx.fillRect(i,i,1,1);
-            }
-            // TODO: canvas is blurry
+            ctx.fillStyle="#3370d4";
+            let particle_1 = new Particle(10,20,20);
+            particle_1.draw(ctx);
+            //TODO: particle is not showing
         } else {
             alert ('Canvas is not supported!');
         }
@@ -43,7 +51,7 @@ export default class App extends Component {
 
     render(){
         return (
-            <BackgroundCanvas ref="canvas"></BackgroundCanvas>
+            <canvas id="canvas" width={1200} height={1200} ></canvas>
         );
     }
 }
