@@ -19,7 +19,8 @@ class Particle {
     }
 
     getRandomColor() {
-        let h = 240;
+        // let h = 240;
+        let h = Math.floor(Math.random()*360);
         let s = Math.floor(Math.random() * 100);
         // let l = Math.floor(Math.random() * 50);
         let l = 80;
@@ -39,14 +40,26 @@ class Particle {
 
     update(delta,canvas) {
 
-        let deltaX = delta * Math.cos(this.movingDirection);
-        let deltaY = delta * Math.sin(this.movingDirection);
+        let deltaX = delta * Math.cos(this.movingDirection * Math.PI / 180);
+        let deltaY = delta * Math.sin(this.movingDirection * Math.PI / 180);
 
         this.axisX += deltaX;
         this.axisY += deltaY;  
 
-        if(axisX >= canvas.width) {
-            
+        if (this.axisX >= canvas.width || this.axisX <= 0) {
+            if(this.movingDirection > 180) {
+                this.movingDirection = 360 - this.movingDirection;
+            } else if (this.movingDirection < 180) {
+                this.movingDirection = 180 - this.movingDirection;
+            }
+        }
+
+        if(this.axisY >= canvas.height || this.axisY <= 0) {
+            if(this.movingDirection > 180) {
+                this.movingDirection = 360 - this.movingDirection;
+            } else if (this.movingDirection < 180) {
+                this.movingDirection = 360 - this.movingDirection;
+            }
         }
 
         // this.axisX += deltaX;
@@ -68,8 +81,8 @@ export default class App extends Component {
         this.particles = [];
         this.intervIds = [];
         this.radius = 3;
-        this.maxAmount = 50;
-        this.fps = 100;
+        this.maxAmount = 200;
+        this.fps = 30;
         this.state = {
 
         }
@@ -87,7 +100,7 @@ export default class App extends Component {
     animation(canvas) {
         for (let i = 0; i < this.maxAmount; i++) {
             // this.particles[i].update(2);
-            this.particles[i].update(Math.floor(Math.random() * 10) + 1,canvas);
+            this.particles[i].update(Math.floor(Math.random() * 2) + 1,canvas);
         }
     }
 
