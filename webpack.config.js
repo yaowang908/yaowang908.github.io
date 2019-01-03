@@ -83,21 +83,18 @@ module.exports = {
             path.join(__dirname, 'node_modules')
         ]),
         new HtmlWebpackPlugin({
-            hash: true,
             title: 'Home page',
             template: path.resolve(__dirname, 'index.html'),
             chunks: ['app'],
             filename: 'index.html'
         }),
         new HtmlWebpackPlugin({
-            hash: true,
             title: 'Collections page',
             template: path.resolve(__dirname, 'collections.html'),
             chunks: ['collections'],
             filename: 'collections.html'
         }),
         new HtmlWebpackPlugin({
-            hash: true,
             title: 'Projects page',
             template: path.resolve(__dirname, 'projects.html'),
             chunks: ['projects'],

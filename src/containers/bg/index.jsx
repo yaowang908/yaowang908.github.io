@@ -8,13 +8,14 @@ export default class Background extends Component {
         this.getRandom = this.getRandom.bind(this);
         this.init = this.init.bind(this);
         this.animation = this.animation.bind(this);
+        this._onClick = this._onClick.bind(this);
         this.particles = [];//all particle holder
         this.intervIds;//intervIds holder
         this.radius = 3;//particle radius
         this.maxAmount = 200;//particles' maxamount
         this.fps = 30; //refresh interval
         this.state = {
-
+            
         }
     }
 
@@ -75,13 +76,37 @@ export default class Background extends Component {
         }.bind(this)
     }
 
+    _onClick(e) {
+        console.log(e.screenX,e.screenY);
+        const canvas = this.refs.canvas;
+        if (canvas.getContext) {
+            const ctx = canvas.getContext('2d');
+            for (let i = 0; i < this.maxAmount; i++) {
+
+                let pX = this.particles[i].axisX;
+                let pY = this.particles[i].axisY;
+                if(e.screenX < pX) {
+                    //if angle greater than 180, use trgonometric function induction formula
+                    this.particles[i].movingDirection = 180 + Math.atan((e.screenY - pY) / (e.screenX - pX)) * 180 / Math.PI;
+                } else {
+                    this.particles[i].movingDirection = Math.atan((e.screenY-pY)/(e.screenX-pX))*180/Math.PI;
+                }
+                
+                this.particles[i].update(Math.floor(Math.random() * 2) + 1, canvas);
+                //update particle's position by 1 or 2 unit
+            }
+        } else {
+            alert('Canvas is not supported!');
+        }
+    }
+
     componentDidUpdate() {
         
     }
 
     render() {
         return (
-            <canvas ref="canvas"></canvas>
+            <canvas ref="canvas" onClick={this._onClick}></canvas>
         );
     }
 }
