@@ -39,7 +39,9 @@ const Entry = styled.div`
     float: left;
 `;
 
-
+const Link = styled.a`
+    color: #000;
+`;
 
 export default class main extends Component {
     constructor(props) {
@@ -54,9 +56,9 @@ export default class main extends Component {
             <MainContainer>
                 <NameContainer>Yao Wang</NameContainer>
                 <EntriesContainer>
-                    <Entry>Collection</Entry>
-                    <Entry>Projects</Entry>
-                    <Entry>Design</Entry>
+                    <Entry><Link href="/collections.html">Collection</Link></Entry>
+                    <Entry><Link href="/projects.html">Projects</Link></Entry>
+                    <Entry><Link href="https://www.behance.net/yaowang9">Design</Link></Entry>
                 </EntriesContainer>
             </MainContainer>
         );

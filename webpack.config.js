@@ -8,6 +8,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         app: "./src/index.jsx",
+        collections: "./src/collections.jsx",
+        projects: "./src/projects.jsx"
     },
     devtool: 'source-map',
     output: {
@@ -61,7 +63,7 @@ module.exports = {
     },
     devServer: {
         stats: 'errors-only',
-        contentBase: './dist',
+        // contentBase: './dist', //index.html is not here
         host: 'localhost',
         port: 3000
     },
@@ -81,8 +83,25 @@ module.exports = {
             path.join(__dirname, 'node_modules')
         ]),
         new HtmlWebpackPlugin({
-            title: 'Neighborhood Map',
-            template: path.resolve(__dirname, 'index.html')
+            hash: true,
+            title: 'Home page',
+            template: path.resolve(__dirname, 'index.html'),
+            chunks: ['app'],
+            filename: 'index.html'
+        }),
+        new HtmlWebpackPlugin({
+            hash: true,
+            title: 'Collections page',
+            template: path.resolve(__dirname, 'collections.html'),
+            chunks: ['collections'],
+            filename: 'collections.html'
+        }),
+        new HtmlWebpackPlugin({
+            hash: true,
+            title: 'Projects page',
+            template: path.resolve(__dirname, 'projects.html'),
+            chunks: ['projects'],
+            filename: 'projects.html'
         }),
         new CompressionPlugin({
             test: /\.js(\?.*)?$/i
