@@ -9,7 +9,7 @@ export default class Background extends Component {
         this.init = this.init.bind(this);
         this.animation = this.animation.bind(this);
         this.particles = [];//all particle holder
-        this.intervIds = [];//intervIds holder
+        this.intervIds;//intervIds holder
         this.radius = 3;//particle radius
         this.maxAmount = 200;//particles' maxamount
         this.fps = 30; //refresh interval
@@ -36,8 +36,9 @@ export default class Background extends Component {
     }
 
     updateCanvas(ctx, canvas) {
+        clearInterval(this.intervIds);
         //refresh canvas every 'this.fps' seconds
-        this.intervIds[0] = setInterval(() => {
+        this.intervIds = setInterval(() => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             this.animation(canvas);
         }, this.fps);
@@ -55,15 +56,27 @@ export default class Background extends Component {
             ctx.canvas.width = window.innerWidth;
             ctx.canvas.height = window.innerHeight;
             //resize to window size
-            ctx.fillStyle = "#3370d4";
             this.init(ctx, canvas);
         } else {
             alert('Canvas is not supported!');
         }
+
+        window.onresize = function () {
+            let NewCanvas = this.refs.canvas;
+            if (NewCanvas.getContext) {
+                let NewCtx = NewCanvas.getContext('2d');
+                NewCtx.canvas.width = window.innerWidth;
+                NewCtx.canvas.height = window.innerHeight;
+                //resize to window size
+                this.init(NewCtx, NewCanvas);
+            } else {
+                alert('Canvas is not supported!');
+            }
+        }.bind(this)
     }
 
     componentDidUpdate() {
-
+        
     }
 
     render() {

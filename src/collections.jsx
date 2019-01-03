@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Collections from "./containers/Collections/index.jsx";
-import "../assets/app.scss";
+import "../assets/collections.scss";
 
 ReactDOM.render(
     <Collections />,

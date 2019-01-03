@@ -18,7 +18,7 @@ const NameContainer = styled.div`
     padding: 0;
     margin-bottom: 50px;
     font-family: 'Lobster', cursive;
-    font-size: 2em;
+    font-size: 3em;
     text-align: center;
 `;
 
