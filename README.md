@@ -18,4 +18,4 @@ Just visit [yaow.me](https://www.yaow.me)
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
+* Hat tips to anyone whose code was used
