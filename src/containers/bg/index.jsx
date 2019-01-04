@@ -9,6 +9,7 @@ export default class Background extends Component {
         this.init = this.init.bind(this);
         this.animation = this.animation.bind(this);
         this._onClick = this._onClick.bind(this);
+        this.movingSpeed = 2;
         this.particles = [];//all particle holder
         this.intervIds;//intervIds holder
         this.radius = 3;//particle radius
@@ -31,7 +32,7 @@ export default class Background extends Component {
     animation(canvas) {
         for (let i = 0; i < this.maxAmount; i++) {
             // this.particles[i].update(2);
-            this.particles[i].update(Math.floor(Math.random() * 2) + 1, canvas);
+            this.particles[i].update(Math.floor(Math.random() * this.movingSpeed) + 1, canvas);
             //update particle's position by 1 or 2 unit
         }
     }
@@ -77,22 +78,28 @@ export default class Background extends Component {
     }
 
     _onClick(e) {
-        console.log(e.screenX,e.screenY);
-        const canvas = this.refs.canvas;
+        // console.log(e.screenX,e.screenY);
+        // console.log(e.clientX,e.clientY);
+        let canvas = this.refs.canvas;
+        if(this.movingSpeed < 15) {
+            this.movingSpeed++;
+        } else {
+            this.movingSpeed = 2;
+        }
         if (canvas.getContext) {
-            const ctx = canvas.getContext('2d');
+            let ctx = canvas.getContext('2d');
             for (let i = 0; i < this.maxAmount; i++) {
 
                 let pX = this.particles[i].axisX;
                 let pY = this.particles[i].axisY;
-                if(e.screenX < pX) {
+                if (e.clientX < pX) {
                     //if angle greater than 180, use trgonometric function induction formula
-                    this.particles[i].movingDirection = 180 + Math.atan((e.screenY - pY) / (e.screenX - pX)) * 180 / Math.PI;
+                    this.particles[i].movingDirection = 180 + Math.atan((e.clientY - pY) / (e.clientX - pX)) * 180 / Math.PI;
                 } else {
-                    this.particles[i].movingDirection = Math.atan((e.screenY-pY)/(e.screenX-pX))*180/Math.PI;
+                    this.particles[i].movingDirection = Math.atan((e.clientY - pY) / (e.clientX-pX))*180/Math.PI;
                 }
                 
-                this.particles[i].update(Math.floor(Math.random() * 2) + 1, canvas);
+                this.particles[i].update(Math.floor(Math.random() * this.movingSpeed) + 1, canvas);
                 //update particle's position by 1 or 2 unit
             }
         } else {
