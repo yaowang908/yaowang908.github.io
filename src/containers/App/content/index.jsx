@@ -11,6 +11,13 @@ const MainContainer = styled.div`
     margin-left: -300px;
     margin-top: -100px;
     z-index: 100;
+
+    @media screen and (max-width: 600px) {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        left: 0;
+    }
 `;
 
 const NameContainer = styled.div`
@@ -37,6 +44,11 @@ const Entry = styled.div`
     font-size: 1.25em;
     text-align: center;
     float: left;
+
+    @media screen and (max-width: 600px) {
+        margin: 40px auto;
+        float: none;
+    }
 `;
 
 const Link = styled.a`
