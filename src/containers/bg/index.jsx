@@ -99,7 +99,9 @@ export default class Background extends Component {
                     this.particles[i].movingDirection = Math.atan((e.clientY - pY) / (e.clientX-pX))*180/Math.PI;
                 }
                 
-                this.particles[i].update(Math.floor(Math.random() * this.movingSpeed) + this.movingSpeed - 1, canvas);
+                // this.particles[i].update(Math.floor(Math.random() * this.movingSpeed) + this.movingSpeed - 1, canvas);
+                this.particles[i].fps = 5;
+                this.particles[i].update(this.movingSpeed - 1, canvas);
                 //update particle's position by 1 or 2 unit
             }
         } else {

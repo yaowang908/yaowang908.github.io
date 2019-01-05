@@ -38,32 +38,39 @@ export default class Particle {
     }
 
     update(delta, canvas) {
-        //set border
+
 
         let deltaX = delta * Math.cos(this.movingDirection * Math.PI / 180);
         let deltaY = delta * Math.sin(this.movingDirection * Math.PI / 180);
 
         this.axisX += deltaX;
         this.axisY += deltaY;
-
-        if (this.axisX >= canvas.width || this.axisX <= 0) {
-            if (this.movingDirection >= 180) {
-                this.movingDirection = 360 - this.movingDirection;
-            } else if (this.movingDirection < 180) {
-                this.movingDirection = -(180 - this.movingDirection);
+        
+        //set border
+        if (this.axisX > (canvas.width)) {
+            if (this.movingDirection > 270 && this.movingDirection < 360) {
+                this.movingDirection = 180 + this.movingDirection;
+            } else if (this.movingDirection < 90 && this.movingDirection > 0) {
+                this.movingDirection = 180 - this.movingDirection;
+            }
+        }
+        if (this.axisX < 0) {
+            if (this.movingDirection > 180 && this.movingDirection < 270) {
+                this.movingDirection = 540 - this.movingDirection;
+            } else if (this.movingDirection <= 180 && this.movingDirection > 90) {
+                this.movingDirection = 180 - this.movingDirection;
             }
         }
 
-        if (this.axisY >= canvas.height || this.axisY <= 0) {
-            if (this.movingDirection >= 180) {
+        if (this.axisY > (canvas.height) || this.axisY < 0) {
+            if (this.movingDirection > 180 ) {
                 this.movingDirection = 360 - this.movingDirection;
-            } else if (this.movingDirection < 180) {
+            } else if (this.movingDirection <= 180) {
                 this.movingDirection = 360 - this.movingDirection;
             }
         }
 
-        // this.axisX += deltaX;
-        // this.axisY += deltaY;    
+
         this.draw();
     }
 }
