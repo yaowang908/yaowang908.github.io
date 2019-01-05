@@ -47,15 +47,15 @@ export default class Particle {
         this.axisY += deltaY;
 
         if (this.axisX >= canvas.width || this.axisX <= 0) {
-            if (this.movingDirection > 180) {
+            if (this.movingDirection >= 180) {
                 this.movingDirection = 360 - this.movingDirection;
             } else if (this.movingDirection < 180) {
-                this.movingDirection = 180 - this.movingDirection;
+                this.movingDirection = -(180 - this.movingDirection);
             }
         }
 
         if (this.axisY >= canvas.height || this.axisY <= 0) {
-            if (this.movingDirection > 180) {
+            if (this.movingDirection >= 180) {
                 this.movingDirection = 360 - this.movingDirection;
             } else if (this.movingDirection < 180) {
                 this.movingDirection = 360 - this.movingDirection;
