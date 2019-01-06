@@ -45,13 +45,13 @@ export default class Particle {
 
         this.axisX += deltaX;
         this.axisY += deltaY;
-        
+
         //set border
         if (this.axisX > (canvas.width)) {
             if (this.movingDirection > 270 && this.movingDirection < 360) {
                 this.movingDirection = 180 + this.movingDirection;
             } else if (this.movingDirection < 90 && this.movingDirection > 0) {
-                this.movingDirection = 180 - this.movingDirection;
+                    this.movingDirection = 180 - this.movingDirection;
             }
         }
         if (this.axisX < 0) {
@@ -60,6 +60,8 @@ export default class Particle {
             } else if (this.movingDirection <= 180 && this.movingDirection > 90) {
                 this.movingDirection = 180 - this.movingDirection;
             }
+
+            
         }
 
         if (this.axisY > (canvas.height) || this.axisY < 0) {
