@@ -38,40 +38,40 @@ export default class Particle {
     }
 
     update(delta, canvas) {
+        //thanks to @blindman67 https://stackoverflow.com/questions/54065819/canvas-bouncing-ball-randomly-passes-left-border
+        let dx, dy, x, y;
+        dx = delta * Math.cos(this.movingDirection * Math.PI / 180);
+        dy = delta * Math.sin(this.movingDirection * Math.PI / 180);
+        x = this.axisX += dx;
+        y = this.axisY += dy;
+        const r = this.radius;
 
-
-        let deltaX = delta * Math.cos(this.movingDirection * Math.PI / 180);
-        let deltaY = delta * Math.sin(this.movingDirection * Math.PI / 180);
-
-        this.axisX += deltaX;
-        this.axisY += deltaY;
-
-        //set border
-        if (this.axisX > (canvas.width)) {
-            if (this.movingDirection > 270 && this.movingDirection < 360) {
-                this.movingDirection = 180 + this.movingDirection;
-            } else if (this.movingDirection < 90 && this.movingDirection > 0) {
-                    this.movingDirection = 180 - this.movingDirection;
+        if (dx > 0) { // moving to the right
+            if (x + r >= canvas.width) {
+                x = canvas.width - r;
+                dx = -dx;
+            }
+        } else if (dx < 0) { // moving to the left
+            if (x - r <= 0) {
+                x = r;
+                dx = -dx;
             }
         }
-        if (this.axisX < 0) {
-            if (this.movingDirection > 180 && this.movingDirection < 270) {
-                this.movingDirection = 540 - this.movingDirection;
-            } else if (this.movingDirection <= 180 && this.movingDirection > 90) {
-                this.movingDirection = 180 - this.movingDirection;
+        if (dy > 0) { // moving down
+            if (y + r >= canvas.height) {
+                y = canvas.height - r;
+                dy = -dy;
             }
-
-            
-        }
-
-        if (this.axisY > (canvas.height) || this.axisY < 0) {
-            if (this.movingDirection > 180 ) {
-                this.movingDirection = 360 - this.movingDirection;
-            } else if (this.movingDirection <= 180) {
-                this.movingDirection = 360 - this.movingDirection;
+        } else if (dy < 0) { // moving up
+            if (y - r <= 0) {
+                y = r;
+                dy = -dy;
             }
         }
 
+        this.axisX = x;
+        this.axisY = y;
+        this.movingDirection = Math.atan2(dy, dx) * (180 / Math.PI);
 
         this.draw();
     }

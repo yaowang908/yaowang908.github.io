@@ -19,3 +19,4 @@ Just visit [yaow.me](https://www.yaow.me)
 ## Acknowledgments
 
 * Hat tips to anyone whose code was used
+* Thanks to [@blindman67](https://stackoverflow.com/questions/54065819/canvas-bouncing-ball-randomly-passes-left-border)'s correction
