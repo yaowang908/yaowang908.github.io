@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import Items from "./items.jsx";
 
 const ProjectsMainContainer = styled.div`
     width: 100%;
     height:100%;
     overflow-y: scroll;
+    overflow-x: hidden;
     padding-right: 17px;
     position: absolute;
     font-size: 2em;
@@ -45,7 +47,7 @@ export default class ProjectsMain extends Component {
             <ProjectsMainContainer>
                 <Back href={'/'}>Home</Back>
                 <Title>Projects</Title>
-                <h2>Coming Soon...</h2>
+                <Items></Items>
             </ProjectsMainContainer>
         );
     }

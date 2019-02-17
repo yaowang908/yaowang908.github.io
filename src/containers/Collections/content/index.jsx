@@ -6,6 +6,7 @@ const CollectionsMainContainer = styled.div`
     width: 100%;
     height:100%;
     overflow-y: scroll;
+    overflow-x: hidden;
     padding-right: 17px;
     position: absolute;
     font-size: 2em;
