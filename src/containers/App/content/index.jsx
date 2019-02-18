@@ -11,9 +11,6 @@ const MainContainer = styled.div`
     margin-left: -300px;
     margin-top: -100px;
     z-index: 100;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding-right: 17px;
     @media screen and (max-width: 600px) {
         width: 100%;
         text-align: center;
