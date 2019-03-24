@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Background from "./../bg/index.jsx";
-import CollectionsMain from "./content/index.jsx";
+import CollectionsMain from "./content";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -32,7 +31,6 @@ export default class Collections extends Component {
         return (
             <Container>
                 <CollectionsMain></CollectionsMain>
-                <Background></Background>
             </Container>
         );
     }
