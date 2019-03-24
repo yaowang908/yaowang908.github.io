@@ -23,12 +23,22 @@ const Block = styled.div`
         width: 100%;
         height: 100%;
         text-align: center;
-        line-height: 100%;
         color: rgb(34,77,147);
         text-decoration: none;
+        position: relative;
+        
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
         span {
-            display: table-cell;
-            vertical-align: middle;
+            position: absolute;
+            display: block;
+            bottom: 0;
+            padding: 5px 0;
+            background: rgba(255,255,255,0.5);
+            width: 100%
             font-size: 1.5rem;
             font-family: 'Lobster', cursive;
         }
@@ -46,7 +56,14 @@ const Section = (props)=>{
         <SectionContainer>
             {
                 props.lists.map((x)=>{
-                    return <Block><a href={x.link}><span>{x.name}</span></a></Block>
+                    return (
+                            <Block>
+                                <a href={x.link}>
+                                    <span>{x.name}</span>
+                                    <img src={x.imgUrl} alt={x.name}/>
+                                </a>
+                            </Block>
+                        );
                 })
             }
         </SectionContainer>
