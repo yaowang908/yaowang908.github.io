@@ -18,6 +18,12 @@ const SidePanel = styled.div`
     position: fixed;
     left: 0;
     background-color: #224d93;
+    font-family: 'Lobster', cursive;
+    font-size: 2em;
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 `;
 
 const SidePanelPlaceHolder = styled.div`

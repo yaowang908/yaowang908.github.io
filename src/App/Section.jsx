@@ -18,9 +18,9 @@ const Block = styled.div`
         width: 100%;
         height: 100%;
         text-align: center;
-        color: rgb(34,77,147);
         text-decoration: none;
         position: relative;
+        color: rgb(34,77,147);
         
         img {
             width: 100%;
