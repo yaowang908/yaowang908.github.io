@@ -2,21 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SectionContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 30px;
-    justify-content: space-between;
-    align-content: flex-start;
+    margin: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    grid-gap: 1rem;
+    align-content: start;
 `;
 
 const Block = styled.div`
-    flex: 0 1 300px;
     border: 1px solid #224d93;
     box-sizing: border-box;
-    margin-bottom: 30px;
-    background-color: ${props => props.color ? props.color : '#fff'};
-    background-image: ${props => props.imgUrl ? 'url('+props.imgUrl+')' : 'rgb(34,77,147)'};
 
     a {
         display: table;
@@ -42,12 +37,6 @@ const Block = styled.div`
             font-size: 1.5rem;
             font-family: 'Lobster', cursive;
         }
-    }
-
-    &:before {
-        content: '';
-        float: left;
-        padding-top: 100%;
     }
 `;
 
