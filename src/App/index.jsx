@@ -23,7 +23,7 @@ const SidePanel = styled.div`
     text-align: center;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
 `;
 
 const SidePanelPlaceHolder = styled.div`
