@@ -10,6 +10,10 @@ const Container = styled.div`
     position: relative;
     display: flex;
     flex-flow: row nowrap;
+
+    @media (max-width: 768px) {
+        flex-flow: column nowrap;
+    }
 `;
 
 const SidePanel = styled.div`
@@ -24,16 +28,37 @@ const SidePanel = styled.div`
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        width: 100vw;
+        height: 20vw;
+        top: 0;
+        flex-flow: row nowrap;
+    }
+
+    @media (max-width: 320px) {
+        height: 30vw;
+    }
 `;
 
 const SidePanelPlaceHolder = styled.div`
     flex: 1 1 20%;
+    @media (max-width: 768px) {
+        flex: 1 1 25vw;
+    }
+    @media (max-width: 320px) {
+        flex: 1 1 40vw;
+    }
 `;
 
 const MainPlaceHolder = styled.div`
     flex: 1 1 80%;
     display: flex;
     flex-flow: column nowrap;
+    @media (max-width: 768px) {
+        flex: 1 1 auto;
+    }
 `;
 
 
