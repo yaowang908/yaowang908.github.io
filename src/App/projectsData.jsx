@@ -29,6 +29,12 @@ const projectsData = [
         imgUrl: '../../assets/mind-mapping.png',
         color: 'rgb(232,298,97)',
     },
+    {
+        name: 'Animated Q12',
+        link: 'https://www.behance.net/gallery/35725335/Daily-Commute',
+        imgUrl: '../../assets/q-12.png',
+        color: 'rgb(232,298,97)',
+    },
 ];
 
 export default projectsData;
