@@ -8,8 +8,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         app: "./src/index.jsx",
-        collections: "./src/collections.jsx",
-        projects: "./src/projects.jsx"
     },
     devtool: 'source-map',
     output: {
@@ -87,18 +85,6 @@ module.exports = {
             template: path.resolve(__dirname, 'index.html'),
             chunks: ['app'],
             filename: 'index.html'
-        }),
-        new HtmlWebpackPlugin({
-            title: 'Collections page',
-            template: path.resolve(__dirname, 'collections.html'),
-            chunks: ['collections'],
-            filename: 'collections.html'
-        }),
-        new HtmlWebpackPlugin({
-            title: 'Projects page',
-            template: path.resolve(__dirname, 'projects.html'),
-            chunks: ['projects'],
-            filename: 'projects.html'
         }),
         new CompressionPlugin({
             test: /\.js(\?.*)?$/i
