@@ -8,6 +8,7 @@ import { lightColor, darkColor, secondaryDarkColor } from "./Config";
 const Container = styled.div`
     width: 100%;
     height: auto;
+    min-height: 100%;
     position: relative;
     display: flex;
     flex-flow: row nowrap;
