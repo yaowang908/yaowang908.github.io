@@ -32,6 +32,7 @@ const Block = styled.div`
             display: block;
             bottom: 0;
             padding: 5px 0;
+            box-sizing: border-box;
             background: rgba(255,255,255,0.5);
             width: 100%
             font-size: 1.5rem;
