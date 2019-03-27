@@ -32,6 +32,7 @@ const Block = styled.div`
             display: block;
             bottom: 0;
             padding: 5px 0;
+            box-sizing: border-box;
             background: rgba(255,255,255,0.5);
             width: 100%
             font-size: 1.5rem;
@@ -45,7 +46,8 @@ const Section = (props)=>{
         <SectionContainer>
             {
                 props.lists.map((x)=>{
-                    return (
+                    if(x.externalLink) {
+                        return (
                             <Block>
                                 <a href={x.link}>
                                     <span>{x.name}</span>
@@ -53,6 +55,18 @@ const Section = (props)=>{
                                 </a>
                             </Block>
                         );
+                    } else {
+                        return (
+                            <Block>
+                                <a href={x.link}>
+                                    <span>internalLink</span>
+                                    <span>{x.name}</span>
+                                    <img src={x.imgUrl} alt={x.name} />
+                                </a>
+                            </Block>
+                        );
+                    }
+                    
                 })
             }
         </SectionContainer>

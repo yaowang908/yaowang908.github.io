@@ -3,13 +3,15 @@ import Section from "./Section";
 import SidePanelContent from './SidePanel';
 import styled from "styled-components";
 import projectsData from "./projectsData"
+import { lightColor, darkColor, secondaryDarkColor } from "./Config";
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
+    height: auto;
     position: relative;
     display: flex;
     flex-flow: row nowrap;
+    background-color: ${secondaryDarkColor};
 
     @media (max-width: 768px) {
         flex-flow: column nowrap;
@@ -21,7 +23,7 @@ const SidePanel = styled.div`
     height: 100%;
     position: fixed;
     left: 0;
-    background-color: #224d93;
+    background-color: ${darkColor};
     font-family: 'Lobster', cursive;
     font-size: 2em;
     text-align: center;
@@ -29,12 +31,16 @@ const SidePanel = styled.div`
     flex-flow: column nowrap;
     justify-content: space-evenly;
     align-items: center;
+    border-right: 2px solid #ECF0F1;
+    box-sizing: border-box;
 
     @media (max-width: 768px) {
         width: 100vw;
         height: 20vw;
         top: 0;
         flex-flow: row nowrap;
+        border-right: 0px solid #ECF0F1;
+        border-bottom: 1px solid #ECF0F1;
     }
 
     @media (max-width: 320px) {
@@ -45,7 +51,7 @@ const SidePanel = styled.div`
 const SidePanelPlaceHolder = styled.div`
     flex: 1 1 20%;
     @media (max-width: 768px) {
-        flex: 1 1 25vw;
+        flex: 1 1 200px;
     }
     @media (max-width: 320px) {
         flex: 1 1 40vw;
@@ -69,7 +75,7 @@ const TitleContainer = styled.div`
     font-family: 'Lobster', cursive;
     font-size: 2rem;
     text-align: center;
-    color: #000;
+    color: ${lightColor};
 `;
 
 const App = ()=>{
