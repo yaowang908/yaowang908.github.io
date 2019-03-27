@@ -41,6 +41,12 @@ const projectsData = [
         imgUrl: '../../assets/mind-mapping.png',
         externalLink: true,
     },
+    {
+        name: 'Brochure Design',
+        link: 'https://1drv.ms/b/s!Al3-aczVxOa-iZ5TOVRZitxw77Zo3g',
+        imgUrl: '../../assets/gz-brochure.jpg',
+        externalLink: true,
+    },
 ];
 
 export default projectsData;
