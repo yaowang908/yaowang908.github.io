@@ -45,7 +45,8 @@ const Section = (props)=>{
         <SectionContainer>
             {
                 props.lists.map((x)=>{
-                    return (
+                    if(x.externalLink) {
+                        return (
                             <Block>
                                 <a href={x.link}>
                                     <span>{x.name}</span>
@@ -53,6 +54,18 @@ const Section = (props)=>{
                                 </a>
                             </Block>
                         );
+                    } else {
+                        return (
+                            <Block>
+                                <a href={x.link}>
+                                    <span>internalLink</span>
+                                    <span>{x.name}</span>
+                                    <img src={x.imgUrl} alt={x.name} />
+                                </a>
+                            </Block>
+                        );
+                    }
+                    
                 })
             }
         </SectionContainer>

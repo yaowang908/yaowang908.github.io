@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from "styled-components";
-
-const lightColor = '#ECF0F1';
+import { lightColor } from "./Config";
 
 const NameContainer = styled.div`
     width: 100%;
