@@ -6,9 +6,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <Box
       sx={{
         width: '100%',
-        minHeight: '70vh',
-        overflow: 'hidden',
-        padding: '2em',
+        minHeight: '100vh',
+        padding: '5em 10em 2em 10em',
       }}
     >
       {children}

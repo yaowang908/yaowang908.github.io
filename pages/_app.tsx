@@ -11,6 +11,8 @@ import { createTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ColorModeContext } from 'src/ColorModeContext';
 
+import 'styles/globals.css';
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
