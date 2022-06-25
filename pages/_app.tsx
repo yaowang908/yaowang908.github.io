@@ -20,20 +20,41 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
+const constant = {
+  isDarkModeEnabledKey: 'is-dark-mode-enabled',
+};
+
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [mode, setMode] = React.useState<PaletteMode>(
-    prefersDarkMode ? 'dark' : 'light'
-  );
+
+  const [mode, setMode] = React.useState<PaletteMode>('light');
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const previousMode = window?.localStorage.getItem(
+      constant.isDarkModeEnabledKey
+    );
+    (previousMode === 'light' || previousMode === 'dark') &&
+      setMode(previousMode);
+    previousMode === null && setMode(prefersDarkMode ? 'dark' : 'light');
+  }, [prefersDarkMode]);
 
   const colorMode = React.useMemo(
     () => ({
       // The dark mode switch would invoke this method
       toggleColorMode: () => {
-        setMode((prevMode: PaletteMode) =>
-          prevMode === 'light' ? 'dark' : 'light'
-        );
+        setMode((prevMode: PaletteMode) => {
+          const nextMode = prevMode === 'light' ? 'dark' : 'light';
+          if (typeof window !== 'undefined') {
+            window?.localStorage.setItem(
+              constant.isDarkModeEnabledKey,
+              nextMode
+            );
+          }
+          return nextMode;
+        });
       },
     }),
     []
