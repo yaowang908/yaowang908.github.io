@@ -4,17 +4,12 @@ import Head from 'next/head';
 import { Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Layout from 'src/components/Layout';
 import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
-import Link from 'src/components/Link';
+import Footer from 'src/components/Footer';
 
 const Home: NextPage = () => {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
-
   return (
     <>
       <Head>
@@ -52,29 +47,7 @@ const Home: NextPage = () => {
         >
           I build things for the web.
         </Typography>
-        <Container
-          sx={(theme) => ({
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'right',
-            position: 'absolute',
-            right: '10vw',
-            bottom: '2vw',
-            [theme.breakpoints.down('sm')]: {
-              justifyContent: 'center',
-              right: '0vw',
-            },
-          })}
-        >
-          <Stack direction='row' spacing={6}>
-            <Link href='/about' sx={{ fontSize: 'clamp(1.5vw, 2em, 1em)' }}>
-              ABOUT ME
-            </Link>
-            <Link href='/projects' sx={{ fontSize: 'clamp(1.5vw, 2em, 1em)' }}>
-              PROJECTS
-            </Link>
-          </Stack>
-        </Container>
+        <Footer />
       </Layout>
     </>
   );

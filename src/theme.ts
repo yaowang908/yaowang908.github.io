@@ -6,8 +6,8 @@ const modeSwitcher = (mode: string) => {
   if (mode === 'light') {
     return {
       // palette values for light mode
-      primary: deepOrange,
-      divider: deepOrange[200],
+      primary: blueGrey,
+      divider: blueGrey[200],
       text: {
         primary: blueGrey[900],
         secondary: grey[800],
@@ -31,8 +31,8 @@ const modeSwitcher = (mode: string) => {
   }
   return {
     // palette values for default mode
-    primary: deepOrange,
-    divider: deepOrange[200],
+    primary: blueGrey,
+    divider: blueGrey[200],
     text: {
       primary: blueGrey[900],
       secondary: grey[800],
