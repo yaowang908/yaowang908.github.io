@@ -6,8 +6,8 @@ const modeSwitcher = (mode: string) => {
   if (mode === 'light') {
     return {
       // palette values for light mode
-      primary: deepOrange,
-      divider: deepOrange[200],
+      primary: blueGrey,
+      divider: blueGrey[200],
       text: {
         primary: blueGrey[900],
         secondary: grey[800],
@@ -31,8 +31,8 @@ const modeSwitcher = (mode: string) => {
   }
   return {
     // palette values for default mode
-    primary: deepOrange,
-    divider: deepOrange[200],
+    primary: blueGrey,
+    divider: blueGrey[200],
     text: {
       primary: blueGrey[900],
       secondary: grey[800],
@@ -49,6 +49,22 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       md: 900, // small laptop
       lg: 1200, // desktop
       xl: 1536, // large screens
+    },
+  },
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Montserrat',
+        },
+        h1: {
+          fontWeight: '800',
+          fontSize: 'clamp(14vw, 6em, 30vw)',
+        },
+        h2: {
+          fontSize: 'clamp(3vw, 3em, 3em)',
+        },
+      },
     },
   },
   palette: {
