@@ -51,6 +51,22 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       xl: 1536, // large screens
     },
   },
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Montserrat',
+        },
+        h1: {
+          fontWeight: '800',
+          fontSize: 'clamp(14vw, 6em, 30vw)',
+        },
+        h2: {
+          fontSize: 'clamp(3vw, 3em, 3em)',
+        },
+      },
+    },
+  },
   palette: {
     mode,
     ...modeSwitcher(mode),

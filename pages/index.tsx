@@ -20,29 +20,16 @@ const Home: NextPage = () => {
           align='left'
           noWrap
           variant='h1'
-          fontFamily={'Montserrat'}
           sx={{
-            fontWeight: '800',
-            fontSize: 'clamp(14vw, 6em, 30vw)',
             marginTop: '10vh',
           }}
         >
           Hello
         </Typography>
-        <Typography
-          align='left'
-          fontFamily={'Montserrat'}
-          variant='h2'
-          sx={{ fontSize: 'clamp(3vw, 3em, 3em)', marginLeft: '0.2em' }}
-        >
+        <Typography align='left' variant='h2' sx={{ marginLeft: '0.2em' }}>
           I'm Yao Wang.
         </Typography>
-        <Typography
-          align='left'
-          fontFamily={'Montserrat'}
-          variant='h2'
-          sx={{ fontSize: 'clamp(3vw, 3em, 3em)', marginLeft: '0.2em' }}
-        >
+        <Typography align='left' variant='h2' sx={{ marginLeft: '0.2em' }}>
           I build things for the web.
         </Typography>
         <Footer />
