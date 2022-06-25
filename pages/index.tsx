@@ -2,8 +2,6 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import { Typography } from '@mui/material';
-import Stack from '@mui/material/Stack';
-import { Container } from '@mui/material';
 
 import Layout from 'src/components/Layout';
 import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
@@ -13,7 +11,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>I'm Yao</title>
+        <title>Hello</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
       <Layout>

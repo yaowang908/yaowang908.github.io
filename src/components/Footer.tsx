@@ -1,8 +1,15 @@
+import { useRouter } from 'next/router';
+
 import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
+
 import Link from 'src/components/Link';
 
 const footerLinkData = [
+  {
+    href: '/',
+    text: 'HOME',
+  },
   {
     href: '/about',
     text: 'ABOUT ME',
@@ -20,6 +27,7 @@ const FooterItem = ({ href, text }: { href: string; text: string }) => (
 );
 
 const Footer = () => {
+  const router = useRouter();
   return (
     <>
       <Container
@@ -37,9 +45,11 @@ const Footer = () => {
         })}
       >
         <Stack direction='row' spacing={6}>
-          {footerLinkData.map((x) => (
-            <FooterItem href={x.href} text={x.text} key={x.href} />
-          ))}
+          {footerLinkData
+            .filter((x) => x.href !== router.pathname)
+            .map((x) => (
+              <FooterItem href={x.href} text={x.text} key={x.href} />
+            ))}
         </Stack>
       </Container>
     </>
