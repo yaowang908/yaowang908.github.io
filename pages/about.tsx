@@ -1,22 +1,20 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
+
+import Box from '@mui/material/Box';
 
 import Layout from 'src/components/Layout';
 import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
 import Footer from 'src/components/Footer';
+import Header from 'src/components/Header';
 
 const About: NextPage = () => {
   return (
-    <>
-      <Head>
-        <title>About me</title>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-      </Head>
-      <Layout>
-        <ColorModeSwitcher />
-        <Footer />
-      </Layout>
-    </>
+    <Layout>
+      <ColorModeSwitcher />
+      <Header title='About me' />
+      <Box sx={{ flexGrow: '1' }}>{/* content */}</Box>
+      <Footer />
+    </Layout>
   );
 };
 

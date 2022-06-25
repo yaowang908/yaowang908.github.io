@@ -35,12 +35,14 @@ const Footer = () => {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'right',
-          position: 'absolute',
+          flexGrow: '0',
           right: '10vw',
           bottom: '2vw',
-          [theme.breakpoints.down('sm')]: {
+          [theme.breakpoints.down('md')]: {
             justifyContent: 'center',
+            marginTop: '2vw',
             right: '0vw',
+            bottom: '0vw',
           },
         })}
       >

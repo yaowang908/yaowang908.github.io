@@ -8,6 +8,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         width: '100%',
         minHeight: '100vh',
         padding: '5vh 10vw 2vh 10vw',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
       }}
     >
       {children}

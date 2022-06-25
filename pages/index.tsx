@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 import Layout from 'src/components/Layout';
 import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
@@ -16,22 +17,24 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <ColorModeSwitcher />
-        <Typography
-          align='left'
-          noWrap
-          variant='h1'
-          sx={{
-            marginTop: '10vh',
-          }}
-        >
-          Hello
-        </Typography>
-        <Typography align='left' variant='h2' sx={{ marginLeft: '0.2em' }}>
-          I'm Yao Wang.
-        </Typography>
-        <Typography align='left' variant='h2' sx={{ marginLeft: '0.2em' }}>
-          I build things for the web.
-        </Typography>
+        <Box sx={{ flexGrow: '1' }}>
+          <Typography
+            align='left'
+            noWrap
+            variant='h1'
+            sx={{
+              marginTop: '10vh',
+            }}
+          >
+            Hello
+          </Typography>
+          <Typography align='left' variant='h2' sx={{ marginLeft: '0.2em' }}>
+            I'm Yao Wang.
+          </Typography>
+          <Typography align='left' variant='h2' sx={{ marginLeft: '0.2em' }}>
+            I build things for the web.
+          </Typography>
+        </Box>
         <Footer />
       </Layout>
     </>
