@@ -19,7 +19,7 @@ const ColorModeSwitcher = () => {
         bgcolor: 'background.default',
         color: 'text.primary',
         borderRadius: 1,
-        p: 3,
+        p: 0,
       }}
     >
       {/* {theme.palette.mode} mode */}
