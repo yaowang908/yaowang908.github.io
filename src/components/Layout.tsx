@@ -7,7 +7,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       sx={{
         width: '100%',
         minHeight: '100vh',
-        padding: '5em 10em 2em 10em',
+        padding: '5vh 10vw 2vh 10vw',
       }}
     >
       {children}

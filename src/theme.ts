@@ -6,8 +6,8 @@ const modeSwitcher = (mode: string) => {
   if (mode === 'light') {
     return {
       // palette values for light mode
-      primary: amber,
-      divider: amber[200],
+      primary: deepOrange,
+      divider: deepOrange[200],
       text: {
         primary: blueGrey[900],
         secondary: grey[800],
@@ -31,8 +31,8 @@ const modeSwitcher = (mode: string) => {
   }
   return {
     // palette values for default mode
-    primary: amber,
-    divider: amber[200],
+    primary: deepOrange,
+    divider: deepOrange[200],
     text: {
       primary: blueGrey[900],
       secondary: grey[800],
@@ -41,6 +41,16 @@ const modeSwitcher = (mode: string) => {
 };
 
 export const getDesignTokens = (mode: PaletteMode) => ({
+  breakPoints: {
+    values: {
+      xxs: 0, // small phone
+      xs: 300, // phone
+      sm: 600, // tablets
+      md: 900, // small laptop
+      lg: 1200, // desktop
+      xl: 1536, // large screens
+    },
+  },
   palette: {
     mode,
     ...modeSwitcher(mode),

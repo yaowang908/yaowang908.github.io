@@ -4,13 +4,17 @@ import Head from 'next/head';
 import { Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Layout from 'src/components/Layout';
 import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
 import Link from 'src/components/Link';
-import { fontSize } from '@mui/system';
 
 const Home: NextPage = () => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+
   return (
     <>
       <Head>
@@ -26,7 +30,8 @@ const Home: NextPage = () => {
           fontFamily={'Montserrat'}
           sx={{
             fontWeight: '800',
-            fontSize: '12em',
+            fontSize: 'clamp(14vw, 6em, 30vw)',
+            marginTop: '10vh',
           }}
         >
           Hello
@@ -35,7 +40,7 @@ const Home: NextPage = () => {
           align='left'
           fontFamily={'Montserrat'}
           variant='h2'
-          sx={{ fontSize: '3em', marginLeft: '0.2em' }}
+          sx={{ fontSize: 'clamp(3vw, 3em, 3em)', marginLeft: '0.2em' }}
         >
           I'm Yao Wang.
         </Typography>
@@ -43,25 +48,29 @@ const Home: NextPage = () => {
           align='left'
           fontFamily={'Montserrat'}
           variant='h2'
-          sx={{ fontSize: '3em', marginLeft: '0.2em' }}
+          sx={{ fontSize: 'clamp(3vw, 3em, 3em)', marginLeft: '0.2em' }}
         >
           I build things for the web.
         </Typography>
         <Container
-          sx={{
+          sx={(theme) => ({
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'right',
             position: 'absolute',
-            right: '10em',
-            bottom: '2em',
-          }}
+            right: '10vw',
+            bottom: '2vw',
+            [theme.breakpoints.down('sm')]: {
+              justifyContent: 'center',
+              right: '0vw',
+            },
+          })}
         >
           <Stack direction='row' spacing={6}>
-            <Link href='/about' sx={{ fontSize: '1.6em' }}>
+            <Link href='/about' sx={{ fontSize: 'clamp(1.5vw, 2em, 1em)' }}>
               ABOUT ME
             </Link>
-            <Link href='/projects' sx={{ fontSize: '1.6em' }}>
+            <Link href='/projects' sx={{ fontSize: 'clamp(1.5vw, 2em, 1em)' }}>
               PROJECTS
             </Link>
           </Stack>
