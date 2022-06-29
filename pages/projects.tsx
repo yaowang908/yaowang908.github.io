@@ -6,9 +6,9 @@ import Typography from '@mui/material/Typography';
 
 import Layout from 'src/components/Layout';
 import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
-import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
 import Link from 'src/components/Link';
+import NavMenu from 'src/components/NavMenu';
 
 const projectsData = [
   {
@@ -41,33 +41,35 @@ const projectsData = [
 const Projects: NextPage = () => {
   return (
     <Layout>
-      <ColorModeSwitcher />
+      <NavMenu />
       <Header title='Projects' />
       <Box
         sx={(theme) => ({
-          maxWidth: '800px',
           width: '100%',
           margin: '5vw auto 0 auto',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(256px, 1fr))',
+          gridTemplateColumns: '1fr 1fr 1fr 1fr',
           gridAutoRows: 'minmax(150px, 6em)',
           gap: 1,
           flexGrow: '1',
-          '& > :not(style)': {
-            width: '100%',
-            height: '100%',
+          overflow: 'hidden',
+          [theme.breakpoints.down('lg')]: {
+            gridTemplateColumns: '1fr 1fr 1fr',
           },
           [theme.breakpoints.down('md')]: {
-            marginBottom: '6vw',
+            gridTemplateColumns: '1fr 1fr',
+          },
+          [theme.breakpoints.down('sm')]: {
+            gridTemplateColumns: '1fr',
           },
         })}
       >
         {projectsData.map((p) => (
-          <Paper elevation={4} key={p.name} sx={{ p: 2 }}>
+          <Paper elevation={4} key={p.name} sx={{ p: 2, maxWidth: '100%' }}>
             <Typography
               align='left'
               variant='h6'
-              sx={{ mb: 1, fontSize: '1em' }}
+              sx={{ fontSize: '1em', maxWidth: '100%' }}
             >
               {p.name}
             </Typography>
@@ -78,7 +80,6 @@ const Projects: NextPage = () => {
           </Paper>
         ))}
       </Box>
-      <Footer />
     </Layout>
   );
 };

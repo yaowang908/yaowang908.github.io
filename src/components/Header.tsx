@@ -8,7 +8,7 @@ const Header = ({ title }: { title: string }) => {
         <title>{title}</title>
       </Head>
       <Typography
-        align='left'
+        align='center'
         variant='h2'
         sx={{ marginLeft: '0.2em', flexGrow: '0' }}
       >
