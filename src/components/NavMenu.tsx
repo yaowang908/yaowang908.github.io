@@ -12,10 +12,10 @@ const footerLinkData = [
     href: '/',
     text: 'HOME',
   },
-  {
-    href: '/about',
-    text: 'ABOUT ME',
-  },
+  // {
+  //   href: '/about',
+  //   text: 'ABOUT ME',
+  // },
   {
     href: '/projects',
     text: 'PROJECTS',
