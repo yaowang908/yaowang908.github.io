@@ -2,7 +2,9 @@ import { useRouter } from 'next/router';
 
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
+import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
 import Link from 'src/components/Link';
 
 const footerLinkData = [
@@ -20,13 +22,19 @@ const footerLinkData = [
   },
 ];
 
-const FooterItem = ({ href, text }: { href: string; text: string }) => (
-  <Link href={href} sx={{ fontSize: 'clamp(1.5vw, 2em, 1em)' }}>
-    {text}
+const MenuItem = ({ href, text }: { href: string; text: string }) => (
+  <Link href={href} noWrap sx={{ alignSelf: 'center' }}>
+    <Typography
+      variant='body1'
+      noWrap
+      sx={{ fontSize: 'clamp(1.5vw, 2em, 1.1em)' }}
+    >
+      {text}
+    </Typography>
   </Link>
 );
 
-const Footer = () => {
+const NavMenu = () => {
   const router = useRouter();
   return (
     <>
@@ -35,27 +43,30 @@ const Footer = () => {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'right',
+          alignItems: 'center',
           flexGrow: '0',
-          right: '10vw',
-          bottom: '2vw',
+          marginBottom: '2vh',
+          maxWidth: '100%',
           [theme.breakpoints.down('md')]: {
-            justifyContent: 'center',
-            marginTop: '2vw',
-            right: '0vw',
-            bottom: '0vw',
+            justifyContent: 'left',
           },
         })}
       >
-        <Stack direction='row' spacing={6}>
+        <Stack
+          direction='row'
+          spacing={{ xs: 2, sm: 3, md: 4, lg: 6 }}
+          sx={{ maxWidth: '100%' }}
+        >
           {footerLinkData
             .filter((x) => x.href !== router.pathname)
             .map((x) => (
-              <FooterItem href={x.href} text={x.text} key={x.href} />
+              <MenuItem href={x.href} text={x.text} key={x.href} />
             ))}
+          <ColorModeSwitcher />
         </Stack>
       </Box>
     </>
   );
 };
 
-export default Footer;
+export default NavMenu;

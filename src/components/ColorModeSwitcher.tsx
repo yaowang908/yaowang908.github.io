@@ -10,18 +10,7 @@ const ColorModeSwitcher = () => {
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'right',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        borderRadius: 1,
-        p: 0,
-      }}
-    >
+    <>
       {/* {theme.palette.mode} mode */}
       <IconButton
         sx={{ ml: 1 }}
@@ -34,7 +23,7 @@ const ColorModeSwitcher = () => {
           <Brightness4Icon />
         )}
       </IconButton>
-    </Box>
+    </>
   );
 };
 
