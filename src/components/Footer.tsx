@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import Stack from '@mui/material/Stack';
-import { Container } from '@mui/material';
+import Box from '@mui/material/Box';
 
 import Link from 'src/components/Link';
 
@@ -30,7 +30,7 @@ const Footer = () => {
   const router = useRouter();
   return (
     <>
-      <Container
+      <Box
         sx={(theme) => ({
           display: 'flex',
           flexDirection: 'row',
@@ -53,7 +53,7 @@ const Footer = () => {
               <FooterItem href={x.href} text={x.text} key={x.href} />
             ))}
         </Stack>
-      </Container>
+      </Box>
     </>
   );
 };
