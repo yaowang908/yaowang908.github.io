@@ -1,3 +1,4 @@
+import * as React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Paper from '@mui/material/Paper';
@@ -10,35 +11,45 @@ import Header from 'src/components/Header';
 import Link from 'src/components/Link';
 import NavMenu from 'src/components/NavMenu';
 
-const projectsData = [
-  {
-    name: 'chrome-extension-newtab',
-    link: 'https://github.com/yaowang908/chrome-extension-newtab',
-    preview: '',
-  },
-  {
-    name: 'time-zone-organizer',
-    link: 'https://github.com/yaowang908/time-zone-organizer',
-    preview: 'https://time-zone-organizer.vercel.app/',
-  },
-  {
-    name: 'my-react-calendar',
-    link: 'https://github.com/yaowang908/my-react-calendar',
-    preview: 'https://yaowang908.github.io/my-react-calendar/',
-  },
-  {
-    name: 'react-adaptable-carousel',
-    link: 'https://github.com/yaowang908/react-adaptable-carousel',
-    preview: 'https://yaowang908.github.io/react-adaptable-carousel/',
-  },
-  {
-    name: '2048',
-    link: 'https://github.com/yaowang908/2048',
-    preview: 'https://yaowang908.github.io/2048/',
-  },
-];
+interface ProjectsData {
+  name: string;
+  repositoryLabel: string;
+  repositoryLink: string;
+  previewLabel?: string;
+  previewLink?: string;
+}
+
+const convertResponseData = (responseData: any[]) => {
+  return responseData?.map((p) => ({
+    name: p?.properties?.Name?.title[0]?.plain_text,
+    repositoryLabel:
+      p?.properties?.['Repository Label']?.['rich_text'][0]?.plain_text,
+    repositoryLink: p?.properties?.['Repository URL']?.url,
+    previewLabel:
+      p?.properties?.['Preview Label']?.['rich_text'][0]?.plain_text,
+    previewLink: p?.properties?.['Preview URL']?.url,
+  }));
+};
 
 const Projects: NextPage = () => {
+  const [data, setData] = React.useState<ProjectsData[]>([]);
+  const [error, setError] = React.useState<any>(undefined);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const res = await fetch('https://royal-dawn-3c44.yaowang.workers.dev/');
+      const data = await res.json();
+      const formattedData = convertResponseData(data?.results);
+      setData(formattedData);
+    }
+    try {
+      fetchData();
+    } catch (e) {
+      console.error(e);
+      setError(e);
+    }
+  }, []);
+
   return (
     <Layout>
       <NavMenu />
@@ -64,21 +75,26 @@ const Projects: NextPage = () => {
           },
         })}
       >
-        {projectsData.map((p) => (
-          <Paper elevation={4} key={p.name} sx={{ p: 2, maxWidth: '100%' }}>
-            <Typography
-              align='left'
-              variant='h6'
-              sx={{ fontSize: '1em', maxWidth: '100%' }}
-            >
-              {p.name}
-            </Typography>
-            <Link href={p.link} sx={{ mr: 2 }}>
-              Github
-            </Link>
-            {p.preview && <Link href={p.preview}>Preview</Link>}
-          </Paper>
-        ))}
+        {error && <Typography>{error + ''}</Typography>}
+        {data.length > 0 &&
+          !error &&
+          data.map((p) => (
+            <Paper elevation={4} key={p.name} sx={{ p: 2, maxWidth: '100%' }}>
+              <Typography
+                align='left'
+                variant='h6'
+                sx={{ fontSize: '1em', maxWidth: '100%' }}
+              >
+                {p.name}
+              </Typography>
+              <Link href={p?.repositoryLink} sx={{ mr: 2 }}>
+                {p?.repositoryLabel}
+              </Link>
+              {p?.previewLink && (
+                <Link href={p?.previewLink}>{p?.previewLabel}</Link>
+              )}
+            </Paper>
+          ))}
       </Box>
     </Layout>
   );
