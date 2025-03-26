@@ -29,7 +29,7 @@ const Home: NextPage = () => {
               Hello
             </Typography>
             <Typography align='left' variant='h2' sx={{ marginLeft: '0.2em' }}>
-              I'm Yao Wang.
+              I&apos;m Yao Wang.
             </Typography>
             <Typography align='left' variant='h2' sx={{ marginLeft: '0.2em' }}>
               I build things for the web.
