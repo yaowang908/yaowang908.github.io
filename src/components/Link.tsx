@@ -7,6 +7,9 @@ import { styled } from '@mui/material/styles'
 // Add support for the sx prop for consistency with the other branches.
 const Anchor = styled('a')({})
 
+type TanStackLinkProps = React.ComponentProps<typeof TanStackLink>
+type AnchorProps = React.ComponentPropsWithoutRef<'a'>
+
 export type LinkProps = {
   activeClassName?: string
   href: string
@@ -38,32 +41,47 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(
 
   if (isExternal) {
     if (noLinkStyle) {
-      return <Anchor className={className} href={href} ref={ref} {...(other as any)} />
+      return (
+        <Anchor
+          className={className}
+          href={href}
+          ref={ref}
+          {...(other as Omit<AnchorProps, 'href' | 'ref' | 'className'>)}
+        />
+      )
     }
 
     return <MuiLink className={className} href={href} ref={ref} {...other} />
   }
 
+  const tanStackLinkProps: Omit<TanStackLinkProps, 'to' | 'children'> = {
+    className,
+    ...(other as Omit<TanStackLinkProps, 'to' | 'children' | 'className'>),
+  }
+
   if (noLinkStyle) {
     return (
-      <TanStackLink
-        to={href}
-        className={className}
-        {...(other as any)}
-      >
-        {(linkProps) => <Anchor {...linkProps} ref={ref} />}
+      <TanStackLink to={href} {...tanStackLinkProps}>
+        {(linkProps) => (
+          <Anchor
+            {...(linkProps as AnchorProps)}
+            ref={ref}
+            className={className}
+          />
+        )}
       </TanStackLink>
     )
   }
 
   return (
-    <TanStackLink
-      to={href}
-      className={className}
-      {...(other as any)}
-    >
+    <TanStackLink to={href} {...tanStackLinkProps}>
       {(linkProps) => (
-        <MuiLink {...(linkProps as any)} ref={ref} {...other} />
+        <MuiLink
+          {...(linkProps as AnchorProps)}
+          ref={ref}
+          {...other}
+          className={className}
+        />
       )}
     </TanStackLink>
   )
