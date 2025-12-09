@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router';
+import { useRouterState } from '@tanstack/react-router'
 
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
-import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
-import Link from 'src/components/Link';
+import ColorModeSwitcher from '../components/ColorModeSwitcher'
+import Link from '../components/Link'
 
 const footerLinkData = [
   {
@@ -20,7 +20,7 @@ const footerLinkData = [
     href: '/projects',
     text: 'PROJECTS',
   },
-];
+]
 
 const MenuItem = ({ href, text }: { href: string; text: string }) => (
   <Link href={href} noWrap sx={{ alignSelf: 'center' }}>
@@ -32,10 +32,12 @@ const MenuItem = ({ href, text }: { href: string; text: string }) => (
       {text}
     </Typography>
   </Link>
-);
+)
 
 const NavMenu = () => {
-  const router = useRouter();
+  const router = useRouterState()
+  const pathname = router.location.pathname
+
   return (
     <>
       <Box
@@ -58,7 +60,7 @@ const NavMenu = () => {
           sx={{ maxWidth: '100%' }}
         >
           {footerLinkData
-            .filter((x) => x.href !== router.pathname)
+            .filter((x) => x.href !== pathname)
             .map((x) => (
               <MenuItem href={x.href} text={x.text} key={x.href} />
             ))}
@@ -66,7 +68,7 @@ const NavMenu = () => {
         </Stack>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default NavMenu;
+export default NavMenu

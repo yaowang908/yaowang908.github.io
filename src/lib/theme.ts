@@ -1,6 +1,5 @@
-import { createTheme } from '@mui/material/styles';
-import { red, deepOrange, amber, grey, blueGrey } from '@mui/material/colors';
-import { PaletteMode } from '@mui/material';
+import { grey, blueGrey } from '@mui/material/colors'
+import { PaletteMode } from '@mui/material'
 
 const modeSwitcher = (mode: string) => {
   if (mode === 'light') {
@@ -12,7 +11,7 @@ const modeSwitcher = (mode: string) => {
         primary: blueGrey[900],
         secondary: grey[800],
       },
-    };
+    }
   }
   if (mode === 'dark') {
     return {
@@ -27,7 +26,7 @@ const modeSwitcher = (mode: string) => {
         primary: '#fff',
         secondary: grey[500],
       },
-    };
+    }
   }
   return {
     // palette values for default mode
@@ -37,8 +36,8 @@ const modeSwitcher = (mode: string) => {
       primary: blueGrey[900],
       secondary: grey[800],
     },
-  };
-};
+  }
+}
 
 export const getDesignTokens = (mode: PaletteMode) => ({
   breakPoints: {
@@ -71,21 +70,4 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     mode,
     ...modeSwitcher(mode),
   },
-});
-
-// Create a theme instance.
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#556cd6',
-    },
-    secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: red.A400,
-    },
-  },
-});
-
-export default theme;
+})
