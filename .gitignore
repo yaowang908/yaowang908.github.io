@@ -13,7 +13,8 @@
 /out/
 
 # vite
-/dist
+# Cloudflare pages can not run bun, so we build the project first and deploy to cloudflare page
+# /dist
 /.vite
 
 # production
