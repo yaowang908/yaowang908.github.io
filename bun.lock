@@ -5,7 +5,7 @@
     "": {
       "name": "yaowang908.github.io",
       "dependencies": {
-        "@babel/runtime": "^7.26.10",
+        "@emotion/cache": "^11.11.0",
         "@emotion/react": "^11.9.3",
         "@emotion/styled": "^11.9.3",
         "@mui/icons-material": "^5.8.4",
@@ -14,6 +14,7 @@
         "@tanstack/router-devtools": "^1.79.0",
         "@tanstack/router-plugin": "^1.79.0",
         "@tanstack/router-vite-plugin": "^1.79.0",
+        "clsx": "^2.1.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
       },
@@ -24,7 +25,6 @@
         "@typescript-eslint/eslint-plugin": "^6.0.0",
         "@typescript-eslint/parser": "^6.0.0",
         "@vitejs/plugin-react": "^4.2.0",
-        "braces": "^3.0.3",
         "eslint": "^8.57.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.5",

@@ -43,9 +43,12 @@
 
   "postCreateCommand": "bun install",
 
-  "remoteUser": "bun",
+  // Use the existing bun user from the base image
+  "remoteUser": "bun"
 
-  "mounts": [
-    "source=${localWorkspaceFolder}/node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
-  ]
+  // IMPORTANT: remove this while debugging, it's very likely breaking bun install
+  // If you want a volume later, use a simple name instead of a path.
+  // "mounts": [
+  //   "source=yao-node-modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  // ]
 }
