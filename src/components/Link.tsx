@@ -1,123 +1,90 @@
-import * as React from 'react';
-import clsx from 'clsx';
-import { useRouter } from 'next/router';
-import NextLink, { LinkProps as NextLinkProps } from 'next/link';
-import MuiLink, { LinkProps as MuiLinkProps } from '@mui/material/Link';
-import { styled } from '@mui/material/styles';
+import * as React from 'react'
+import clsx from 'clsx'
+import { Link as TanStackLink, useRouterState } from '@tanstack/react-router'
+import MuiLink, { LinkProps as MuiLinkProps } from '@mui/material/Link'
+import { styled } from '@mui/material/styles'
 
 // Add support for the sx prop for consistency with the other branches.
-const Anchor = styled('a')({});
+const Anchor = styled('a')({})
 
-interface NextLinkComposedProps
-  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
-    Omit<NextLinkProps, 'href' | 'as' | 'onClick' | 'onMouseEnter'> {
-  to: NextLinkProps['href'];
-  linkAs?: NextLinkProps['as'];
-}
-
-export const NextLinkComposed = React.forwardRef<
-  HTMLAnchorElement,
-  NextLinkComposedProps
->(function NextLinkComposed(props, ref) {
-  const { to, linkAs, replace, scroll, shallow, prefetch, locale, ...other } =
-    props;
-
-  return (
-    <NextLink
-      href={to}
-      prefetch={prefetch}
-      as={linkAs}
-      replace={replace}
-      scroll={scroll}
-      shallow={shallow}
-      passHref
-      locale={locale}
-    >
-      <Anchor ref={ref} {...other} />
-    </NextLink>
-  );
-});
+type TanStackLinkProps = React.ComponentProps<typeof TanStackLink>
+type AnchorProps = React.ComponentPropsWithoutRef<'a'>
 
 export type LinkProps = {
-  activeClassName?: string;
-  as?: NextLinkProps['as'];
-  href: NextLinkProps['href'];
-  linkAs?: NextLinkProps['as']; // Useful when the as prop is shallow by styled().
-  noLinkStyle?: boolean;
-} & Omit<NextLinkComposedProps, 'to' | 'linkAs' | 'href'> &
-  Omit<MuiLinkProps, 'href'>;
+  activeClassName?: string
+  href: string
+  noLinkStyle?: boolean
+} & Omit<MuiLinkProps, 'href'>
 
-// A styled version of the Next.js Link component:
-// https://nextjs.org/docs/api-reference/next/link
+// A styled version compatible with TanStack Router
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   props,
   ref
 ) {
   const {
     activeClassName = 'active',
-    as,
     className: classNameProps,
     href,
-    linkAs: linkAsProp,
-    locale,
     noLinkStyle,
-    prefetch,
-    replace,
-    role, // Link don't have roles.
-    scroll,
-    shallow,
     ...other
-  } = props;
+  } = props
 
-  const router = useRouter();
-  const pathname = typeof href === 'string' ? href : href.pathname;
+  const router = useRouterState()
+  const pathname = router.location.pathname
   const className = clsx(classNameProps, {
-    [activeClassName]: router.pathname === pathname && activeClassName,
-  });
+    [activeClassName]: pathname === href && activeClassName,
+  })
 
   const isExternal =
     typeof href === 'string' &&
-    (href.indexOf('http') === 0 || href.indexOf('mailto:') === 0);
+    (href.indexOf('http') === 0 || href.indexOf('mailto:') === 0)
 
   if (isExternal) {
     if (noLinkStyle) {
-      return <Anchor className={className} href={href} ref={ref} {...other} />;
+      return (
+        <Anchor
+          className={className}
+          href={href}
+          ref={ref}
+          {...(other as Omit<AnchorProps, 'href' | 'ref' | 'className'>)}
+        />
+      )
     }
 
-    return <MuiLink className={className} href={href} ref={ref} {...other} />;
+    return <MuiLink className={className} href={href} ref={ref} {...other} />
   }
 
-  const linkAs = linkAsProp || as;
-  const nextjsProps = {
-    to: href,
-    linkAs,
-    replace,
-    scroll,
-    shallow,
-    prefetch,
-    locale,
-  };
+  const tanStackLinkProps: Omit<TanStackLinkProps, 'to' | 'children'> = {
+    className,
+    ...(other as Omit<TanStackLinkProps, 'to' | 'children' | 'className'>),
+  }
 
   if (noLinkStyle) {
     return (
-      <NextLinkComposed
-        className={className}
-        ref={ref}
-        {...nextjsProps}
-        {...other}
-      />
-    );
+      <TanStackLink to={href} {...tanStackLinkProps}>
+        {(linkProps) => (
+          <Anchor
+            {...(linkProps as AnchorProps)}
+            ref={ref}
+            className={className}
+          />
+        )}
+      </TanStackLink>
+    )
   }
 
   return (
-    <MuiLink
-      component={NextLinkComposed}
-      className={className}
-      ref={ref}
-      {...nextjsProps}
-      {...other}
-    />
-  );
-});
+    <TanStackLink to={href} {...tanStackLinkProps}>
+      {(linkProps) => (
+        <MuiLink
+          {...(linkProps as AnchorProps)}
+          ref={ref}
+          {...other}
+          className={className}
+        />
+      )}
+    </TanStackLink>
+  )
+})
 
-export default Link;
+export default Link

@@ -1,22 +1,20 @@
-import * as React from 'react';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import * as React from 'react'
+import { createFileRoute } from '@tanstack/react-router'
+import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
-import Layout from 'src/components/Layout';
-import ColorModeSwitcher from 'src/components/ColorModeSwitcher';
-import Header from 'src/components/Header';
-import Link from 'src/components/Link';
-import NavMenu from 'src/components/NavMenu';
+import Layout from '../components/Layout'
+import Header from '../components/Header'
+import Link from '../components/Link'
+import NavMenu from '../components/NavMenu'
 
 interface ProjectsData {
-  name: string;
-  repositoryLabel: string;
-  repositoryLink: string;
-  previewLabel?: string;
-  previewLink?: string;
+  name: string
+  repositoryLabel: string
+  repositoryLink: string
+  previewLabel?: string
+  previewLink?: string
 }
 
 const convertResponseData = (responseData: any[]) => {
@@ -28,27 +26,31 @@ const convertResponseData = (responseData: any[]) => {
     previewLabel:
       p?.properties?.['Preview Label']?.['rich_text'][0]?.plain_text,
     previewLink: p?.properties?.['Preview URL']?.url,
-  }));
-};
+  }))
+}
 
-const Projects: NextPage = () => {
-  const [data, setData] = React.useState<ProjectsData[]>([]);
-  const [error, setError] = React.useState<any>(undefined);
+export const Route = createFileRoute('/projects')({
+  component: Projects,
+})
+
+function Projects() {
+  const [data, setData] = React.useState<ProjectsData[]>([])
+  const [error, setError] = React.useState<any>(undefined)
 
   React.useEffect(() => {
     async function fetchData() {
-      const res = await fetch('https://royal-dawn-3c44.yaowang.workers.dev/');
-      const data = await res.json();
-      const formattedData = convertResponseData(data?.results);
-      setData(formattedData);
+      const res = await fetch('https://royal-dawn-3c44.yaowang.workers.dev/')
+      const data = await res.json()
+      const formattedData = convertResponseData(data?.results)
+      setData(formattedData)
     }
     try {
-      fetchData();
+      fetchData()
     } catch (e) {
-      console.error(e);
-      setError(e);
+      console.error(e)
+      setError(e)
     }
-  }, []);
+  }, [])
 
   return (
     <Layout>
@@ -97,7 +99,6 @@ const Projects: NextPage = () => {
           ))}
       </Box>
     </Layout>
-  );
-};
+  )
+}
 
-export default Projects;

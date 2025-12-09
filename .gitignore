@@ -8,9 +8,14 @@
 # testing
 /coverage
 
-# next.js
+# next.js (legacy)
 /.next/
 /out/
+
+# vite
+# Cloudflare pages can not run bun, so we build the project first and deploy to cloudflare page
+# /dist
+/.vite
 
 # production
 /build
