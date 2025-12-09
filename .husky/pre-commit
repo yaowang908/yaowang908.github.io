@@ -1,0 +1,4 @@
+echo "🔨 Husky: Running pre-commit hook..."
+bun run build
+git add dist
+echo "✅ Husky: Build complete and dist folder staged"

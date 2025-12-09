@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+// import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import * as React from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { PaletteMode, CssBaseline } from '@mui/material'
@@ -55,7 +55,7 @@ function RootComponent() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Outlet />
-          <TanStackRouterDevtools />
+          {/* <TanStackRouterDevtools /> */}
         </ThemeProvider>
       </ColorModeContext.Provider>
     </CacheProvider>
