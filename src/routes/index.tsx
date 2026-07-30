@@ -62,7 +62,7 @@ const files: FileMeta[] = [
   { id: 'about.tsx', kind: 'TS', language: 'TypeScript React', path: 'src/about.tsx', lines: 19 },
   { id: 'projects.json', kind: '{}', language: 'JSON', path: 'data/projects.json', lines: 31 },
   { id: 'skills.css', kind: '#', language: 'CSS', path: 'src/skills.css', lines: 12 },
-  { id: 'homelab.yaml', kind: 'Y', language: 'YAML', path: 'ops/homelab.yaml', lines: 13 },
+  { id: 'homelab.yaml', kind: 'Y', language: 'YAML', path: 'ops/homelab.yaml', lines: 46 },
   { id: 'contact.md', kind: 'M', language: 'Markdown', path: 'docs/contact.md', lines: 12 },
 ]
 
@@ -719,8 +719,41 @@ function HomelabDocument() {
       <>  {t.property('network')}: {t.string('"Tailscale"')}</>
       <>  {t.property('workloads')}:</>
       <>    - {t.string('"containerized services"')}</>
-      <>    - {t.string('"workflow automation"')}</>
+      <>    - {t.string('"LLM workflow orchestration"')}</>
       <>    - {t.string('"observability experiments"')}</>
+      <>  {t.property('ai_systems')}:</>
+      <>    {t.property('stack')}:</>
+      <>      {t.property('agent_tooling')}: {t.string('"Claude"')}</>
+      <>      {t.property('protocol')}: {t.string('"Model Context Protocol (MCP)"')}</>
+      <>      {t.property('integrations')}: {t.string('["Notion", "Linear", "web data"]')}</>
+      <>    {t.property('reusable_skills')}:</>
+      <>      - {t.property('name')}: {t.string('"daily Hacker News digest"')}</>
+      <>        {t.property('pipeline')}:</>
+      <>          - {t.string('"scrape ranked stories"')}</>
+      <>          - {t.string('"generate summaries and taxonomies"')}</>
+      <>          - {t.string('"normalize URLs and deduplicate over a two-day lookback"')}</>
+      <>          - {t.string('"write to the knowledge base and format a digest"')}</>
+      <>      - {t.string('"conversation-note generator"')}</>
+      <>      - {t.string('"study-note generator"')}</>
+      <>    {t.property('review')}: {t.string('"human approval before persistence"')}</>
+      <>  {t.property('orchestration')}:</>
+      <>    {t.property('n8n')}:</>
+      <>      {t.property('deployment')}: {t.string('"self-hosted with Docker Compose"')}</>
+      <>      {t.property('responsibilities')}:</>
+      <>        - {t.string('"scheduled workflow execution"')}</>
+      <>        - {t.string('"external webhook integrations"')}</>
+      <>      {t.property('configuration')}:</>
+      <>        - {t.string('"host"')}</>
+      <>        - {t.string('"webhooks"')}</>
+      <>        - {t.string('"secure cookies"')}</>
+      <>    {t.property('api')}:</>
+      <>      {t.property('provider')}: {t.string('"Anthropic Messages API"')}</>
+      <>      {t.property('scheduler')}: {t.string('"cron"')}</>
+      <>  {t.property('reliability')}:</>
+      <>    - {t.string('"prompt design"')}</>
+      <>    - {t.string('"structured-output parsing"')}</>
+      <>    - {t.string('"URL-normalized deduplication"')}</>
+      <>    - {t.string('"idempotent writes"')}</>
       <>  {t.property('principles')}:</>
       <>    - {t.string('"private by default"')}</>
       <>    - {t.string('"documented changes"')}</>
