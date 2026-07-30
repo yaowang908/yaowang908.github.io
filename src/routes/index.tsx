@@ -535,7 +535,7 @@ function ContactDocument() {
       {' '}
       <>The shortest route is email.</>
       {' '}
-      <><EmailOutlined className='inline-icon' /> <a href='mailto:yaowang831@gmail.com'>yaowang831@gmail.com</a></>
+      <><EmailOutlined className='inline-icon' /> <EmailReveal /></>
       <><GitHub className='inline-icon' /> <a href='https://github.com/yaowang908'>github.com/yaowang908</a></>
       {' '}
       <>{t.comment('## Good context to include')}</>
@@ -544,4 +544,25 @@ function ContactDocument() {
       <>- What a useful first conversation would cover</>
     </CodeLines>
   )
+}
+
+function EmailReveal() {
+  const [address, setAddress] = useState<string | null>(null)
+
+  if (!address) {
+    return (
+      <button
+        className='email-reveal'
+        data-address='ZW1haWxAeWFvdy5tZQ=='
+        onClick={(event) => {
+          const encoded = event.currentTarget.dataset.address
+          if (encoded) setAddress(window.atob(encoded))
+        }}
+      >
+        Reveal email address
+      </button>
+    )
+  }
+
+  return <a href={`mailto:${address}`}>{address}</a>
 }
