@@ -17,11 +17,8 @@ import ExtensionOutlined from '@mui/icons-material/ExtensionOutlined'
 import GitHub from '@mui/icons-material/GitHub'
 import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined'
 import Menu from '@mui/icons-material/Menu'
-import MoreHoriz from '@mui/icons-material/MoreHoriz'
 import PersonOutline from '@mui/icons-material/PersonOutline'
 import Search from '@mui/icons-material/Search'
-import SettingsOutlined from '@mui/icons-material/SettingsOutlined'
-import VerticalSplit from '@mui/icons-material/VerticalSplit'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -199,18 +196,14 @@ function Home() {
             <button aria-label='Open contact file' title='Contact' onClick={() => openFile('contact.md')}>
               <PersonOutline />
             </button>
-            <button aria-label='Workspace settings' title='Workspace settings' onClick={() => openFile('about.tsx')}>
-              <SettingsOutlined />
-            </button>
           </div>
         </nav>
 
         <aside className={`explorer ${sidebarOpen ? 'open' : ''}`} aria-label='Explorer'>
           <div className='pane-title'>
             <span>Explorer</span>
-            <MoreHoriz aria-hidden='true' />
           </div>
-          <ExplorerGroup label='Open editors' expanded>
+          <ExplorerGroup label='Open editors'>
             {openTabs.map((file) => (
               <ExplorerFile
                 key={file}
@@ -220,7 +213,7 @@ function Home() {
               />
             ))}
           </ExplorerGroup>
-          <ExplorerGroup label='Portfolio' expanded>
+          <ExplorerGroup label='Portfolio'>
             {files.map((file) => (
               <ExplorerFile
                 key={file.id}
@@ -230,38 +223,35 @@ function Home() {
               />
             ))}
           </ExplorerGroup>
-          <div className='outline-block'>
-            <div className='group-heading'><ChevronRight /><span>Outline</span></div>
-            <div className='group-heading'><ChevronRight /><span>Timeline</span></div>
-          </div>
         </aside>
 
         <section className='editor-area' aria-label='Editor'>
           <div className='tab-strip' role='tablist' aria-label='Open files'>
             <div className='tabs-scroll'>
               {openTabs.map((file) => (
-                <button
+                <div
                   key={file}
-                  role='tab'
-                  aria-selected={activeFile === file}
                   className={`editor-tab ${activeFile === file ? 'active' : ''}`}
-                  onClick={() => openFile(file)}
                 >
-                  <FileKind kind={fileById[file].kind} />
-                  <span>{file}</span>
-                  <Close
+                  <button
+                    className='tab-select'
+                    role='tab'
+                    aria-selected={activeFile === file}
+                    onClick={() => openFile(file)}
+                  >
+                    <FileKind kind={fileById[file].kind} />
+                    <span>{file}</span>
+                  </button>
+                  <button
                     className='tab-close'
-                    onClick={(event) => {
-                      event.stopPropagation()
-                      closeTab(file)
-                    }}
-                  />
-                </button>
+                    aria-label={`Close ${file}`}
+                    title={`Close ${file}`}
+                    onClick={() => closeTab(file)}
+                  >
+                    <Close />
+                  </button>
+                </div>
               ))}
-            </div>
-            <div className='editor-actions'>
-              <button aria-label='Split editor' title='Split editor'><VerticalSplit /></button>
-              <button aria-label='More editor actions' title='More actions'><MoreHoriz /></button>
             </div>
           </div>
 
@@ -277,9 +267,7 @@ function Home() {
 
           <section className={`terminal-dock ${terminalOpen ? 'open' : ''}`} aria-label='Terminal panel'>
             <div className='terminal-tabs'>
-              <button onClick={() => setTerminalOpen((open) => !open)}>Problems</button>
-              <button onClick={() => setTerminalOpen((open) => !open)}>Output</button>
-              <button className='active' onClick={() => setTerminalOpen((open) => !open)}>Terminal</button>
+              <span className='terminal-title'>Terminal</span>
               <span className='terminal-spacer' />
               <button
                 className='terminal-toggle'
@@ -316,9 +304,7 @@ function Home() {
           <AccountTreeOutlined />
           <span>codex/multi-aesthetic-redesign</span>
         </a>
-        <span className='status-check'>0 errors</span>
         <span className='status-spacer' />
-        <span>Ln 1, Col 1</span>
         <span>Spaces: 2</span>
         <span>UTF-8</span>
         <span>{fileById[activeFile].language}</span>
@@ -334,6 +320,9 @@ function Home() {
                 ref={paletteInput}
                 value={paletteQuery}
                 onChange={(event) => setPaletteQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' && filteredFiles[0]) openFile(filteredFiles[0].id)
+                }}
                 placeholder='Search files by name'
                 aria-label='Search files by name'
               />
@@ -361,19 +350,23 @@ function Home() {
 
 function ExplorerGroup({
   label,
-  expanded,
   children,
 }: {
   label: string
-  expanded?: boolean
   children: ReactNode
 }) {
+  const [expanded, setExpanded] = useState(true)
+
   return (
     <section className='explorer-group'>
-      <div className='group-heading'>
+      <button
+        className='group-heading'
+        aria-expanded={expanded}
+        onClick={() => setExpanded((open) => !open)}
+      >
         {expanded ? <ExpandMore /> : <ChevronRight />}
         <span>{label}</span>
-      </div>
+      </button>
       {expanded && <div>{children}</div>}
     </section>
   )
