@@ -57,7 +57,10 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); background: var(--surfa
 .activity-bar svg { width: 23px; height: 23px; }
 
 .explorer { min-width: 0; overflow: auto; border-right: 1px solid var(--border); background: var(--surface-lowest); user-select: none; }
-.pane-title { height: 36px; display: flex; align-items: center; padding: 0 18px; color: var(--text-soft); font-size: 11px; text-transform: uppercase; }
+.pane-title { height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px 0 18px; color: var(--text-soft); font-size: 11px; text-transform: uppercase; }
+.new-note { width: 28px; height: 28px; display: grid; place-items: center; background: transparent; color: var(--muted); cursor: pointer; }
+.new-note:hover { background: var(--surface-raised); color: var(--text); }
+.new-note svg { width: 17px; height: 17px; }
 .explorer-group { border-bottom: 1px solid var(--border); }
 .group-heading { width: 100%; height: 24px; display: flex; align-items: center; gap: 2px; padding: 0 7px; background: transparent; color: var(--text-soft); cursor: pointer; font-size: 11px; font-weight: 600; text-align: left; text-transform: uppercase; }
 .group-heading:hover { background: var(--surface-raised); }
@@ -65,11 +68,14 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); background: var(--surfa
 .explorer-file { width: 100%; height: 25px; display: flex; align-items: center; gap: 7px; padding: 0 12px 0 22px; background: transparent; color: var(--text-soft); cursor: pointer; font: 12px/1 var(--code); text-align: left; }
 .explorer-file:hover { background: var(--surface-high); }
 .explorer-file.active { background: var(--surface-highest); color: var(--text); }
+.explorer-file > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.explorer-empty { margin: 0; padding: 8px 16px 12px 22px; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .file-kind { width: 18px; flex: 0 0 18px; color: var(--primary); font: 600 10px/1 var(--code); text-align: center; }
 .kind-ts { color: var(--primary); }
 .kind-json { color: var(--tertiary); }
 .kind-y { color: var(--secondary); }
 .kind-m { color: var(--text-soft); }
+.kind-n { color: var(--tertiary); }
 
 .editor-area { min-width: 0; min-height: 0; display: grid; grid-template-rows: 36px 26px minmax(120px, 1fr) auto; background: var(--surface-low); overflow: hidden; }
 .tab-strip { min-width: 0; border-bottom: 1px solid var(--border); background: var(--surface-raised); }
@@ -108,6 +114,19 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); background: var(--surfa
 .email-reveal { padding: 0; background: transparent; color: var(--tertiary); font: inherit; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; cursor: pointer; }
 .email-reveal:hover { color: var(--primary); text-decoration-color: var(--primary); }
 
+.editor-document.note-document { overflow: hidden; padding: 0; }
+.note-editor { height: 100%; min-height: 0; display: grid; grid-template-rows: 38px 52px minmax(0, 1fr); background: var(--surface-low); }
+.note-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 11px; }
+.note-meta > div { min-width: 0; display: flex; align-items: baseline; gap: 9px; overflow: hidden; white-space: nowrap; }
+.note-meta strong { color: var(--text-soft); font-weight: 500; }
+.delete-note { height: 27px; display: flex; align-items: center; gap: 5px; padding: 0 7px; background: transparent; color: var(--muted); cursor: pointer; font-size: 11px; }
+.delete-note:hover { background: var(--surface-high); color: var(--error); }
+.delete-note svg { width: 15px; height: 15px; }
+.note-title { min-width: 0; width: 100%; padding: 0 20px; border: 0; border-bottom: 1px solid var(--border); outline: 0; background: var(--surface-low); color: var(--text); font: 500 17px/1 var(--code); caret-color: var(--primary); }
+.note-title::placeholder, .note-content::placeholder { color: var(--muted); }
+.note-content { min-width: 0; min-height: 0; width: 100%; padding: 16px 20px 40px; resize: none; border: 0; outline: 0; background: var(--surface-low); color: var(--text-soft); font: 13px/1.7 var(--code); caret-color: var(--primary); }
+.note-title:focus, .note-content:focus { background: var(--surface); }
+
 .terminal-dock { border-top: 1px solid var(--border); background: var(--surface-lowest); }
 .terminal-tabs { height: 33px; display: flex; align-items: center; padding: 0 10px; gap: 4px; }
 .terminal-title { height: 33px; display: flex; align-items: center; padding: 0 9px; border-bottom: 1px solid var(--primary); color: var(--text); font-size: 11px; text-transform: uppercase; }
@@ -127,6 +146,7 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); background: var(--surfa
 .statusbar svg { width: 14px; height: 14px; }
 .status-branch { gap: 5px; max-width: 250px; overflow: hidden; text-overflow: ellipsis; }
 .status-spacer { flex: 1; }
+.status-error { color: #5b0b12; font-weight: 600; }
 
 .palette-backdrop { position: fixed; inset: 35px 0 23px; z-index: 20; display: flex; justify-content: center; align-items: flex-start; padding-top: 36px; background: rgba(12,13,24,.58); }
 .command-palette { width: min(600px, calc(100% - 30px)); border: 1px solid var(--border); background: var(--surface-raised); }
@@ -157,6 +177,7 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); background: var(--surfa
   .status-branch { width: 31px; padding: 0 8px; }
   .code-line { grid-template-columns: 43px minmax(0, 1fr); padding-right: 16px; }
   .line-number { padding-right: 12px; }
+  .note-meta > div span { display: none; }
 }
 
 @media (max-width: 520px) {
@@ -164,6 +185,7 @@ kbd { padding: 2px 5px; border: 1px solid var(--border); background: var(--surfa
   .editor-tab { min-width: 130px; }
   .terminal-content { height: 126px; }
   .code-lines { font-size: 11px; }
+  .note-title, .note-content { padding-right: 14px; padding-left: 14px; }
   .statusbar > span:nth-last-of-type(1) { max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
 }
 

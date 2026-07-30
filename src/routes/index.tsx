@@ -11,12 +11,14 @@ import { createFileRoute } from '@tanstack/react-router'
 import AccountTreeOutlined from '@mui/icons-material/AccountTreeOutlined'
 import ChevronRight from '@mui/icons-material/ChevronRight'
 import Close from '@mui/icons-material/Close'
+import DeleteOutline from '@mui/icons-material/DeleteOutline'
 import EmailOutlined from '@mui/icons-material/EmailOutlined'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import ExtensionOutlined from '@mui/icons-material/ExtensionOutlined'
 import GitHub from '@mui/icons-material/GitHub'
 import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined'
 import Menu from '@mui/icons-material/Menu'
+import NoteAddOutlined from '@mui/icons-material/NoteAddOutlined'
 import PersonOutline from '@mui/icons-material/PersonOutline'
 import Search from '@mui/icons-material/Search'
 
@@ -39,6 +41,23 @@ type FileMeta = {
   lines: number
 }
 
+type NoteId = `note:${string}`
+type WorkspaceFileId = FileId | NoteId
+
+type LocalNote = {
+  id: NoteId
+  title: string
+  content: string
+  updatedAt: number
+}
+
+type SearchableFile = {
+  id: WorkspaceFileId
+  label: string
+  kind: string
+  path: string
+}
+
 const files: FileMeta[] = [
   { id: 'about.tsx', kind: 'TS', language: 'TypeScript React', path: 'src/about.tsx', lines: 19 },
   { id: 'projects.json', kind: '{}', language: 'JSON', path: 'data/projects.json', lines: 31 },
@@ -49,11 +68,41 @@ const files: FileMeta[] = [
 
 const fileById = Object.fromEntries(files.map((file) => [file.id, file])) as Record<FileId, FileMeta>
 
-const terminalHelp = 'Commands: help, open <file>, projects, contact, clear'
+const notesStorageKey = 'yao-portfolio-local-notes-v1'
+const terminalHelp = 'Commands: help, open <file>, note, projects, contact, clear'
+
+function isNoteId(file: WorkspaceFileId): file is NoteId {
+  return file.startsWith('note:')
+}
+
+function noteFileName(note?: LocalNote) {
+  return `${note?.title.trim() || 'Untitled note'}.md`
+}
+
+function loadLocalNotes(): LocalNote[] {
+  if (typeof window === 'undefined') return []
+
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(notesStorageKey) || '[]')
+    if (!Array.isArray(stored)) return []
+
+    return stored.filter((note): note is LocalNote => (
+      typeof note?.id === 'string'
+      && note.id.startsWith('note:')
+      && typeof note.title === 'string'
+      && typeof note.content === 'string'
+      && typeof note.updatedAt === 'number'
+    ))
+  } catch {
+    return []
+  }
+}
 
 function Home() {
-  const [activeFile, setActiveFile] = useState<FileId>('about.tsx')
-  const [openTabs, setOpenTabs] = useState<FileId[]>(['about.tsx', 'projects.json'])
+  const [activeFile, setActiveFile] = useState<WorkspaceFileId>('about.tsx')
+  const [openTabs, setOpenTabs] = useState<WorkspaceFileId[]>(['about.tsx', 'projects.json'])
+  const [notes, setNotes] = useState<LocalNote[]>(loadLocalNotes)
+  const [storageError, setStorageError] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [terminalOpen, setTerminalOpen] = useState(true)
   const [paletteOpen, setPaletteOpen] = useState(false)
@@ -84,14 +133,44 @@ function Home() {
     if (paletteOpen) paletteInput.current?.focus()
   }, [paletteOpen])
 
-  const openFile = (file: FileId) => {
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(notesStorageKey, JSON.stringify(notes))
+      setStorageError(false)
+    } catch {
+      setStorageError(true)
+    }
+  }, [notes])
+
+  const activeNote = isNoteId(activeFile)
+    ? notes.find((note) => note.id === activeFile)
+    : undefined
+
+  const workspaceFiles = useMemo<SearchableFile[]>(() => [
+    ...files.map((file) => ({
+      id: file.id,
+      label: file.id,
+      kind: file.kind,
+      path: file.path,
+    })),
+    ...notes.map((note) => ({
+      id: note.id,
+      label: noteFileName(note),
+      kind: 'N',
+      path: `notes/${noteFileName(note)}`,
+    })),
+  ], [notes])
+
+  const workspaceFile = (file: WorkspaceFileId) => workspaceFiles.find((entry) => entry.id === file)
+
+  const openFile = (file: WorkspaceFileId) => {
     setActiveFile(file)
     setOpenTabs((tabs) => (tabs.includes(file) ? tabs : [...tabs, file]))
     setPaletteOpen(false)
     setPaletteQuery('')
   }
 
-  const closeTab = (file: FileId) => {
+  const closeTab = (file: WorkspaceFileId) => {
     setOpenTabs((tabs) => {
       if (tabs.length === 1) return tabs
       const index = tabs.indexOf(file)
@@ -101,19 +180,65 @@ function Home() {
     })
   }
 
+  const createNote = () => {
+    let number = notes.length + 1
+    while (notes.some((note) => note.title === `Note ${number}`)) number += 1
+
+    const uniqueId = typeof window.crypto?.randomUUID === 'function'
+      ? window.crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    const note: LocalNote = {
+      id: `note:${uniqueId}`,
+      title: `Note ${number}`,
+      content: '',
+      updatedAt: Date.now(),
+    }
+
+    setNotes((current) => [...current, note])
+    openFile(note.id)
+  }
+
+  const updateNote = (id: NoteId, changes: Pick<LocalNote, 'title' | 'content'>) => {
+    setNotes((current) => current.map((note) => (
+      note.id === id
+        ? { ...note, ...changes, updatedAt: Date.now() }
+        : note
+    )))
+  }
+
+  const deleteNote = (id: NoteId) => {
+    const note = notes.find((item) => item.id === id)
+    if (!window.confirm(`Delete "${noteFileName(note)}" from this browser?`)) return
+
+    setNotes((current) => current.filter((item) => item.id !== id))
+    setOpenTabs((tabs) => {
+      const index = tabs.indexOf(id)
+      const next = tabs.filter((tab) => tab !== id)
+
+      if (next.length === 0) {
+        setActiveFile('about.tsx')
+        return ['about.tsx']
+      }
+
+      if (activeFile === id) setActiveFile(next[Math.max(0, index - 1)])
+      return next
+    })
+  }
+
   const filteredFiles = useMemo(() => {
     const query = paletteQuery.trim().toLowerCase()
     return query
-      ? files.filter((file) => `${file.id} ${file.path}`.toLowerCase().includes(query))
-      : files
-  }, [paletteQuery])
+      ? workspaceFiles.filter((file) => `${file.label} ${file.path}`.toLowerCase().includes(query))
+      : workspaceFiles
+  }, [paletteQuery, workspaceFiles])
 
   const submitCommand = (event: FormEvent) => {
     event.preventDefault()
     const input = command.trim()
     if (!input) return
 
-    const [verb, target = ''] = input.toLowerCase().split(/\s+/, 2)
+    const [verb, ...argumentsList] = input.toLowerCase().split(/\s+/)
+    const target = argumentsList.join(' ')
     let output = ''
 
     if (verb === 'clear') {
@@ -130,9 +255,14 @@ function Home() {
     } else if (verb === 'contact') {
       openFile('contact.md')
       output = 'Opened docs/contact.md'
+    } else if (verb === 'note') {
+      createNote()
+      output = 'Created a note stored in this browser.'
     } else if (verb === 'open') {
-      const match = files.find(
-        (file) => file.id === target || file.id.startsWith(target) || file.path.includes(target)
+      const match = workspaceFiles.find(
+        (file) => file.label.toLowerCase() === target
+          || file.label.toLowerCase().startsWith(target)
+          || file.path.toLowerCase().includes(target)
       )
       if (match) {
         openFile(match.id)
@@ -202,26 +332,49 @@ function Home() {
         <aside className={`explorer ${sidebarOpen ? 'open' : ''}`} aria-label='Explorer'>
           <div className='pane-title'>
             <span>Explorer</span>
+            <button
+              className='new-note'
+              aria-label='Create a local note'
+              title='New local note'
+              onClick={createNote}
+            >
+              <NoteAddOutlined />
+            </button>
           </div>
           <ExplorerGroup label='Open editors'>
             {openTabs.map((file) => (
               <ExplorerFile
                 key={file}
-                file={fileById[file]}
+                label={workspaceFile(file)?.label || 'Untitled note.md'}
+                kind={workspaceFile(file)?.kind || 'N'}
                 active={activeFile === file}
                 onClick={() => openFile(file)}
               />
             ))}
           </ExplorerGroup>
-          <ExplorerGroup label='Portfolio'>
+          <ExplorerGroup label='Portfolio · read only'>
             {files.map((file) => (
               <ExplorerFile
                 key={file.id}
-                file={file}
+                label={file.id}
+                kind={file.kind}
                 active={activeFile === file.id}
                 onClick={() => openFile(file.id)}
               />
             ))}
+          </ExplorerGroup>
+          <ExplorerGroup label='Notes · local'>
+            {notes.length > 0 ? notes.map((note) => (
+              <ExplorerFile
+                key={note.id}
+                label={noteFileName(note)}
+                kind='N'
+                active={activeFile === note.id}
+                onClick={() => openFile(note.id)}
+              />
+            )) : (
+              <p className='explorer-empty'>Create a note with the button above. It stays in this browser.</p>
+            )}
           </ExplorerGroup>
         </aside>
 
@@ -239,13 +392,13 @@ function Home() {
                     aria-selected={activeFile === file}
                     onClick={() => openFile(file)}
                   >
-                    <FileKind kind={fileById[file].kind} />
-                    <span>{file}</span>
+                    <FileKind kind={workspaceFile(file)?.kind || 'N'} />
+                    <span>{workspaceFile(file)?.label || 'Untitled note.md'}</span>
                   </button>
                   <button
                     className='tab-close'
-                    aria-label={`Close ${file}`}
-                    title={`Close ${file}`}
+                    aria-label={`Close ${workspaceFile(file)?.label || 'note'}`}
+                    title={`Close ${workspaceFile(file)?.label || 'note'}`}
                     onClick={() => closeTab(file)}
                   >
                     <Close />
@@ -257,12 +410,20 @@ function Home() {
 
           <div className='breadcrumbs'>
             <span>portfolio</span><ChevronRight />
-            <span>{fileById[activeFile].path.split('/')[0]}</span><ChevronRight />
-            <strong>{activeFile}</strong>
+            <span>{workspaceFile(activeFile)?.path.split('/')[0]}</span><ChevronRight />
+            <strong>{workspaceFile(activeFile)?.label}</strong>
           </div>
 
-          <div className='editor-document' key={activeFile}>
-            <FileDocument file={activeFile} />
+          <div className={`editor-document ${activeNote ? 'note-document' : ''}`} key={activeFile}>
+            {activeNote ? (
+              <NoteEditor
+                note={activeNote}
+                onChange={(changes) => updateNote(activeNote.id, changes)}
+                onDelete={() => deleteNote(activeNote.id)}
+              />
+            ) : (
+              <FileDocument file={activeFile as FileId} />
+            )}
           </div>
 
           <section className={`terminal-dock ${terminalOpen ? 'open' : ''}`} aria-label='Terminal panel'>
@@ -305,9 +466,12 @@ function Home() {
           <span>codex/multi-aesthetic-redesign</span>
         </a>
         <span className='status-spacer' />
+        <span className={storageError && activeNote ? 'status-error' : ''}>
+          {activeNote ? (storageError ? 'Local save failed' : 'Saved locally') : 'Read only'}
+        </span>
         <span>Spaces: 2</span>
         <span>UTF-8</span>
-        <span>{fileById[activeFile].language}</span>
+        <span>{activeNote ? 'Markdown' : fileById[activeFile as FileId].language}</span>
         <a href='https://github.com/yaowang908' aria-label='Yao Wang on GitHub'><GitHub /></a>
       </footer>
 
@@ -336,7 +500,7 @@ function Home() {
                   onClick={() => openFile(file.id)}
                 >
                   <FileKind kind={file.kind} />
-                  <span><strong>{file.id}</strong><small>{file.path}</small></span>
+                  <span><strong>{file.label}</strong><small>{file.path}</small></span>
                 </button>
               ))}
               {filteredFiles.length === 0 && <p>No matching files.</p>}
@@ -373,19 +537,65 @@ function ExplorerGroup({
 }
 
 function ExplorerFile({
-  file,
+  label,
+  kind,
   active,
   onClick,
 }: {
-  file: FileMeta
+  label: string
+  kind: string
   active: boolean
   onClick: () => void
 }) {
   return (
     <button className={`explorer-file ${active ? 'active' : ''}`} onClick={onClick}>
-      <FileKind kind={file.kind} />
-      <span>{file.id}</span>
+      <FileKind kind={kind} />
+      <span>{label}</span>
     </button>
+  )
+}
+
+function NoteEditor({
+  note,
+  onChange,
+  onDelete,
+}: {
+  note: LocalNote
+  onChange: (changes: Pick<LocalNote, 'title' | 'content'>) => void
+  onDelete: () => void
+}) {
+  return (
+    <section className='note-editor' aria-label='Local note editor'>
+      <div className='note-meta'>
+        <div>
+          <strong>Local note</strong>
+          <span>Autosaves in this browser only.</span>
+        </div>
+        <button className='delete-note' onClick={onDelete}>
+          <DeleteOutline />
+          <span>Delete</span>
+        </button>
+      </div>
+      <input
+        className='note-title'
+        value={note.title}
+        onChange={(event) => onChange({ title: event.target.value, content: note.content })}
+        onBlur={() => {
+          if (!note.title.trim()) onChange({ title: 'Untitled note', content: note.content })
+        }}
+        placeholder='Note title'
+        aria-label='Note title'
+        spellCheck
+      />
+      <textarea
+        className='note-content'
+        value={note.content}
+        onChange={(event) => onChange({ title: note.title, content: event.target.value })}
+        placeholder='Write a note…'
+        aria-label='Note content'
+        spellCheck
+      />
+    </section>
   )
 }
 
