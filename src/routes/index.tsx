@@ -30,7 +30,6 @@ type FileId =
   | 'about.tsx'
   | 'projects.json'
   | 'skills.css'
-  | 'homelab.yaml'
   | 'contact.md'
 
 type FileMeta = {
@@ -62,7 +61,6 @@ const files: FileMeta[] = [
   { id: 'about.tsx', kind: 'TS', language: 'TypeScript React', path: 'src/about.tsx', lines: 19 },
   { id: 'projects.json', kind: '{}', language: 'JSON', path: 'data/projects.json', lines: 31 },
   { id: 'skills.css', kind: '#', language: 'CSS', path: 'src/skills.css', lines: 12 },
-  { id: 'homelab.yaml', kind: 'Y', language: 'YAML', path: 'ops/homelab.yaml', lines: 46 },
   { id: 'contact.md', kind: 'M', language: 'Markdown', path: 'docs/contact.md', lines: 12 },
 ]
 
@@ -71,8 +69,8 @@ const fileById = Object.fromEntries(files.map((file) => [file.id, file])) as Rec
 const notesStorageKey = 'yao-portfolio-local-notes-v1'
 const terminalHelp = 'Commands: help, open <file>, note, projects, contact, clear'
 
-function isNoteId(file: WorkspaceFileId): file is NoteId {
-  return file.startsWith('note:')
+function isNoteId(file: WorkspaceFileId | null): file is NoteId {
+  return file?.startsWith('note:') ?? false
 }
 
 function noteFileName(note?: LocalNote) {
@@ -99,7 +97,7 @@ function loadLocalNotes(): LocalNote[] {
 }
 
 function Home() {
-  const [activeFile, setActiveFile] = useState<WorkspaceFileId>('about.tsx')
+  const [activeFile, setActiveFile] = useState<WorkspaceFileId | null>('about.tsx')
   const [openTabs, setOpenTabs] = useState<WorkspaceFileId[]>(['about.tsx', 'projects.json'])
   const [notes, setNotes] = useState<LocalNote[]>(loadLocalNotes)
   const [storageError, setStorageError] = useState(false)
@@ -172,12 +170,16 @@ function Home() {
 
   const closeTab = (file: WorkspaceFileId) => {
     setOpenTabs((tabs) => {
-      if (tabs.length === 1) return tabs
       const index = tabs.indexOf(file)
       const next = tabs.filter((tab) => tab !== file)
-      if (activeFile === file) setActiveFile(next[Math.max(0, index - 1)])
+      if (activeFile === file) setActiveFile(next[Math.max(0, index - 1)] ?? null)
       return next
     })
+  }
+
+  const closeAllTabs = () => {
+    setOpenTabs([])
+    setActiveFile(null)
   }
 
   const createNote = () => {
@@ -341,7 +343,21 @@ function Home() {
               <NoteAddOutlined />
             </button>
           </div>
-          <ExplorerGroup label='Open editors'>
+          <ExplorerGroup
+            label='Open editors'
+            action={(
+              <button
+                className='group-action'
+                aria-label='Close all editors'
+                title='Close all editors'
+                onClick={closeAllTabs}
+                disabled={openTabs.length === 0}
+              >
+                <Close />
+                <span>Close all</span>
+              </button>
+            )}
+          >
             {openTabs.map((file) => (
               <ExplorerFile
                 key={file}
@@ -351,6 +367,7 @@ function Home() {
                 onClick={() => openFile(file)}
               />
             ))}
+            {openTabs.length === 0 && <p className='explorer-empty'>No open editors.</p>}
           </ExplorerGroup>
           <ExplorerGroup label='Portfolio · read only'>
             {files.map((file) => (
@@ -408,23 +425,36 @@ function Home() {
             </div>
           </div>
 
-          <div className='breadcrumbs'>
-            <span>portfolio</span><ChevronRight />
-            <span>{workspaceFile(activeFile)?.path.split('/')[0]}</span><ChevronRight />
-            <strong>{workspaceFile(activeFile)?.label}</strong>
-          </div>
+          {activeFile ? (
+            <>
+              <div className='breadcrumbs'>
+                <span>portfolio</span><ChevronRight />
+                <span>{workspaceFile(activeFile)?.path.split('/')[0]}</span><ChevronRight />
+                <strong>{workspaceFile(activeFile)?.label}</strong>
+              </div>
 
-          <div className={`editor-document ${activeNote ? 'note-document' : ''}`} key={activeFile}>
-            {activeNote ? (
-              <NoteEditor
-                note={activeNote}
-                onChange={(changes) => updateNote(activeNote.id, changes)}
-                onDelete={() => deleteNote(activeNote.id)}
-              />
-            ) : (
-              <FileDocument file={activeFile as FileId} />
-            )}
-          </div>
+              <div className={`editor-document ${activeNote ? 'note-document' : ''}`} key={activeFile}>
+                {activeNote ? (
+                  <NoteEditor
+                    note={activeNote}
+                    onChange={(changes) => updateNote(activeNote.id, changes)}
+                    onDelete={() => deleteNote(activeNote.id)}
+                  />
+                ) : (
+                  <FileDocument file={activeFile as FileId} />
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className='breadcrumbs' />
+              <div className='editor-empty'>
+                <InsertDriveFileOutlined />
+                <p>No editors open</p>
+                <span>Select a file from the Explorer to open it.</span>
+              </div>
+            </>
+          )}
 
           <section className={`terminal-dock ${terminalOpen ? 'open' : ''}`} aria-label='Terminal panel'>
             <div className='terminal-tabs'>
@@ -467,11 +497,11 @@ function Home() {
         </a>
         <span className='status-spacer' />
         <span className={storageError && activeNote ? 'status-error' : ''}>
-          {activeNote ? (storageError ? 'Local save failed' : 'Saved locally') : 'Read only'}
+          {activeNote ? (storageError ? 'Local save failed' : 'Saved locally') : activeFile ? 'Read only' : 'No editor'}
         </span>
         <span>Spaces: 2</span>
         <span>UTF-8</span>
-        <span>{activeNote ? 'Markdown' : fileById[activeFile as FileId].language}</span>
+        <span>{activeNote ? 'Markdown' : activeFile ? fileById[activeFile as FileId].language : 'Plain Text'}</span>
         <a href='https://github.com/yaowang908' aria-label='Yao Wang on GitHub'><GitHub /></a>
       </footer>
 
@@ -515,22 +545,27 @@ function Home() {
 function ExplorerGroup({
   label,
   children,
+  action,
 }: {
   label: string
   children: ReactNode
+  action?: ReactNode
 }) {
   const [expanded, setExpanded] = useState(true)
 
   return (
     <section className='explorer-group'>
-      <button
-        className='group-heading'
-        aria-expanded={expanded}
-        onClick={() => setExpanded((open) => !open)}
-      >
-        {expanded ? <ExpandMore /> : <ChevronRight />}
-        <span>{label}</span>
-      </button>
+      <div className='group-heading'>
+        <button
+          className='group-toggle'
+          aria-expanded={expanded}
+          onClick={() => setExpanded((open) => !open)}
+        >
+          {expanded ? <ExpandMore /> : <ChevronRight />}
+          <span>{label}</span>
+        </button>
+        {action}
+      </div>
       {expanded && <div>{children}</div>}
     </section>
   )
@@ -630,7 +665,6 @@ const t = {
 function FileDocument({ file }: { file: FileId }) {
   if (file === 'projects.json') return <ProjectsDocument />
   if (file === 'skills.css') return <SkillsDocument />
-  if (file === 'homelab.yaml') return <HomelabDocument />
   if (file === 'contact.md') return <ContactDocument />
   return <AboutDocument />
 }
@@ -642,7 +676,7 @@ function AboutDocument() {
       {' '}
       {t.comment('/**')}
       {t.comment(' * Yao Wang builds product interfaces and the systems behind them.')}
-      {t.comment(' * Current interests: automation, AI orchestration, and homelab operations.')}
+      {t.comment(' * Current interests: automation, AI orchestration, and infrastructure.')}
       {t.comment(' */')}
       <>{t.keyword('export const')} {t.variable('yao')} = {'{'}</>
       <>  {t.property('name')}: {t.string("'Yao Wang'")},</>
@@ -707,59 +741,6 @@ function SkillsDocument() {
       {'}'}
       {' '}
       {t.comment('/* Tools change. The practice is designing clear, maintainable systems. */')}
-    </CodeLines>
-  )
-}
-
-function HomelabDocument() {
-  return (
-    <CodeLines>
-      <>{t.property('homelab')}:</>
-      <>  {t.property('purpose')}: {t.string('"systems learning and self-hosting"')}</>
-      <>  {t.property('network')}: {t.string('"Tailscale"')}</>
-      <>  {t.property('workloads')}:</>
-      <>    - {t.string('"containerized services"')}</>
-      <>    - {t.string('"LLM workflow orchestration"')}</>
-      <>    - {t.string('"observability experiments"')}</>
-      <>  {t.property('ai_systems')}:</>
-      <>    {t.property('stack')}:</>
-      <>      {t.property('agent_tooling')}: {t.string('"Claude"')}</>
-      <>      {t.property('protocol')}: {t.string('"Model Context Protocol (MCP)"')}</>
-      <>      {t.property('integrations')}: {t.string('["Notion", "Linear", "web data"]')}</>
-      <>    {t.property('reusable_skills')}:</>
-      <>      - {t.property('name')}: {t.string('"daily Hacker News digest"')}</>
-      <>        {t.property('pipeline')}:</>
-      <>          - {t.string('"scrape ranked stories"')}</>
-      <>          - {t.string('"generate summaries and taxonomies"')}</>
-      <>          - {t.string('"normalize URLs and deduplicate over a two-day lookback"')}</>
-      <>          - {t.string('"write to the knowledge base and format a digest"')}</>
-      <>      - {t.string('"conversation-note generator"')}</>
-      <>      - {t.string('"study-note generator"')}</>
-      <>    {t.property('review')}: {t.string('"human approval before persistence"')}</>
-      <>  {t.property('orchestration')}:</>
-      <>    {t.property('n8n')}:</>
-      <>      {t.property('deployment')}: {t.string('"self-hosted with Docker Compose"')}</>
-      <>      {t.property('responsibilities')}:</>
-      <>        - {t.string('"scheduled workflow execution"')}</>
-      <>        - {t.string('"external webhook integrations"')}</>
-      <>      {t.property('configuration')}:</>
-      <>        - {t.string('"host"')}</>
-      <>        - {t.string('"webhooks"')}</>
-      <>        - {t.string('"secure cookies"')}</>
-      <>    {t.property('api')}:</>
-      <>      {t.property('provider')}: {t.string('"Anthropic Messages API"')}</>
-      <>      {t.property('scheduler')}: {t.string('"cron"')}</>
-      <>  {t.property('reliability')}:</>
-      <>    - {t.string('"prompt design"')}</>
-      <>    - {t.string('"structured-output parsing"')}</>
-      <>    - {t.string('"URL-normalized deduplication"')}</>
-      <>    - {t.string('"idempotent writes"')}</>
-      <>  {t.property('principles')}:</>
-      <>    - {t.string('"private by default"')}</>
-      <>    - {t.string('"documented changes"')}</>
-      <>    - {t.string('"recovery before novelty"')}</>
-      {' '}
-      {t.comment('# Hardware and topology details are intentionally not published.')}
     </CodeLines>
   )
 }
