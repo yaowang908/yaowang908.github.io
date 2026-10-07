@@ -4,17 +4,19 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun run vite",
-    "build": "tsc && vite build && node scripts/build-worker.mjs",
+    "dev": "node scripts/copy-excalidraw-assets.mjs && bun run vite",
+    "build": "node scripts/check-portfolio-scenes.mjs && node scripts/copy-excalidraw-assets.mjs && tsc && vite build && node scripts/build-worker.mjs",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "bun test"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@excalidraw/excalidraw": "^0.18.1",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.4",
     "@tanstack/react-router": "^1.79.0",

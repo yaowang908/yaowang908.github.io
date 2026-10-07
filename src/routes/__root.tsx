@@ -1,15 +1,17 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { CacheProvider } from '@emotion/react'
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
+import ThemeProvider from '@mui/material/styles/ThemeProvider'
+import createTheme from '@mui/material/styles/createTheme'
 import createEmotionCache from '../lib/createEmotionCache'
 import '../styles/globals.css'
 
 const clientSideEmotionCache = createEmotionCache()
 const theme = createTheme({
   palette: {
-    mode: 'dark',
-    background: { default: '#080a0f', paper: '#10141c' },
-    text: { primary: '#f2f4f8', secondary: '#929cab' },
+    mode: 'light',
+    background: { default: '#faf9f6', paper: '#ffffff' },
+    text: { primary: '#263238', secondary: '#65717b' },
   },
   typography: { fontFamily: '"Inter", sans-serif' },
 })

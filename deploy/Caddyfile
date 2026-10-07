@@ -1,0 +1,26 @@
+:8080 {
+	root * /srv
+	encode zstd gzip
+
+	@scene path /portfolio.excalidraw /portfolio-mobile.excalidraw
+	header @scene Cache-Control "no-store"
+	@entry path / /index.html
+	header @entry Cache-Control "no-cache"
+	@assets path /assets/* /excalidraw-assets/*
+	header @assets Cache-Control "public, max-age=86400"
+
+	# Missing assets must return 404, rather than HTML disguised as a scene or font.
+	handle @scene {
+		file_server
+	}
+	handle /excalidraw-assets/* {
+		file_server
+	}
+	handle /assets/* {
+		file_server
+	}
+	handle {
+		try_files {path} /index.html
+		file_server
+	}
+}

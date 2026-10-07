@@ -38,3 +38,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Copied from the Excalidraw dependency by dev/build scripts
+/public/excalidraw-assets/

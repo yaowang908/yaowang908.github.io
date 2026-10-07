@@ -1,3 +1,20 @@
+# Editable Excalidraw portfolio
+
+The website’s content and layout live in [`public/portfolio.excalidraw`](public/portfolio.excalidraw)
+and [`public/portfolio-mobile.excalidraw`](public/portfolio-mobile.excalidraw).
+Edit both files in Excalidraw, save them back, and publish a new image. Visitors can edit
+the canvas, but refreshing reloads the published drawing.
+
+Run `bun install --frozen-lockfile` and `bun run dev` to preview. Run `bun test`,
+`bun run typecheck`, and `bun run build` before publishing.
+
+Use `$maintain-portfolio-scenes` to keep shared copy, projects, links, and images in sync.
+Below 768px the page loads the mobile scene; it keeps that scene until reload.
+The build checks content parity while allowing independent layout and wrapping.
+
+See [`deploy/README.md`](deploy/README.md) for the Docker/GHCR workflow, the exact
+HomeLab Compose and Caddy additions, DNS cutover, and rollback instructions.
+
 <div align=center>
 
 # Hi, I'm Yao

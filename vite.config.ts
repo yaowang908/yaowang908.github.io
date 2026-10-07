@@ -15,9 +15,11 @@ export default defineConfig({
       'src': path.resolve(__dirname, './src'),
     },
   },
+  optimizeDeps: {
+    include: ['@emotion/react/jsx-dev-runtime'],
+  },
   server: {
     port: 5173,
     host: true,
   },
 })
-
