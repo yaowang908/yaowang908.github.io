@@ -78,17 +78,13 @@ function Home() {
           const bounds = getCommonBounds(elements)
           const isMobileScene = scenePath === '/portfolio-mobile.excalidraw'
           const fittedScene = zoomToFitBounds({
-            // Fit mobile width, then pan down the taller drawing to read it.
-            bounds: isMobileScene ? [bounds[0], bounds[1], bounds[2], bounds[1] + 200] : bounds,
+            bounds,
             appState,
             canvasOffsets: { top: 88, bottom: 64, left: isMobileScene ? 8 : 24, right: isMobileScene ? 8 : 24 },
             fitToViewport: true,
             viewportZoomFactor: 1,
             maxZoom: 1,
           })
-          if (isMobileScene) {
-            fittedScene.appState.scrollY = 80 / fittedScene.appState.zoom.value - bounds[1]
-          }
           editor.current.updateScene({ appState: fittedScene.appState })
         }}
         UIOptions={{ canvasActions: { loadScene: false, toggleTheme: true } }}
